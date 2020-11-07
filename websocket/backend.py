@@ -23,6 +23,20 @@ class IOT_Server:
 
         dev.add_data(message['data'])
 
+    def process_actuator(self, message):
+        '''
+        :param message: dictionary received from a client device
+        :return:
+        '''
+        # Check ID of device that wrote in. Create the device is it's unkown
+        if message['id'] in self.devices:
+            dev = self.devices[message['id']]
+        else:
+            dev = globals()[message['ancestors'][0]](message['id'])
+            self.devices[message['id']] = dev
+
+        dev.add_data(message['data'])
+        return '1'
 
     def describe_all_devices(self):
         ids = [dev for dev in self.devices]

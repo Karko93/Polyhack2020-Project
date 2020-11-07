@@ -32,7 +32,7 @@ def actuator_com():
     jsondata = request.get_json()
     message = json.loads(jsondata)
     print(message)
-    return json.dumps(iot_server.process_sensor(message))
+    return json.dumps(iot_server.process_actuator(message))
 
 @app.route('/send_json', methods=['GET'])
 def send_json():
