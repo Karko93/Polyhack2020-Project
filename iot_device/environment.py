@@ -23,7 +23,7 @@ def initialize(sensor_type):
 
 class Environment():
 
-    self.sensors = {} # this will be in form {'id1':{'temperature', value, fixed'}}
+    sensors = {} # this will be in form {'id1':{'temperature', value, fixed'}}
 
     def __init__(self, sensors):
         """
@@ -50,8 +50,6 @@ class Environment():
                                        'fixed' : False}
             else:
                 raise Exception('Sensor type unknown.')
-
-        self.fixed = [False]*len(sensors.keys)
 
     def update_environment(self):
         for (sensor, information) in self.sensors.items():
