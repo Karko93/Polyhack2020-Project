@@ -1,4 +1,4 @@
-[{
+{{
   "serial": 1,
   "type": "sensor",
   "ancestor": "temperature",
@@ -54,4 +54,4 @@
     "x": 47.413154,
     "y":8.534643}
 }
-]
+  }
