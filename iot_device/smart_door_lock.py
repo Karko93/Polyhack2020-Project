@@ -4,18 +4,25 @@ Created on Sat Nov  7 13:34:14 2020
 
 @author: user
 """
-import actuator
+from actuator import Actuator
 
-class smart_door_lock(Actuator):
+class SmartDoorLock(Actuator):
     
-    __init__ smart_door_lock(self,jsonFile):
-        self.serial = jsonFile['serial']
-        self.isOpen = jsonFile['value']
+    def __init__(self, jsonFile):
+        self.serial = jsonFile['serial'] # given serial number
+        self.doorLocked = True # State if door is locked
+        self.LockDoor()
+
         
         
-        
-    def Unlockdoor(self):
-        pass
+    def UnlockDoor(self):
+        self.doorLocked = False
         ### Callback to Server is needed
         
+    
+    def LockDoor(self):
+        self.doorLocked = True
+        ### Callback to Server is needed
         
+    
+    
