@@ -56,6 +56,9 @@ class IOT_Device():
 class Sensor(IOT_Device):
     pass
 
+class TemperatureSensor(Sensor):
+    pass
+
 
 class Actuator(IOT_Device):
     jobs = None

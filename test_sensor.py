@@ -17,6 +17,7 @@ class EnvironmentManager(Thread):
             sleep(0.1)
 
 list_of_sensors = {'0'.zfill(6) : 'temp', '1'.zfill(6) : 'temp', '2'.zfill(6) : 'temp'}
+# list_of_sensors = {'0'.zfill(6) : 'temp'}
 
 env = Environment(list_of_sensors)
 sensors = []

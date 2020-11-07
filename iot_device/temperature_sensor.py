@@ -23,3 +23,7 @@ class TemperatureSensor(Sensor):
         self.read_data()
         self.parse_data()
         return self._data
+
+if __name__ == '__main__':
+    dummy_dev = TemperatureSensor(uniq_id='000001')
+    dummy_dev.send_to_server({'Temperature' : 23., 'timestamp': '12:30'})
