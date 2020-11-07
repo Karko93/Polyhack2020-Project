@@ -94,6 +94,9 @@ class NoiseSensor(Sensor):
 class BrightnessSensor(Sensor):
     pass
 
+class ProximitySensor(Sensor):
+    pass
+
 
 class Actuator(IOT_Device):
     jobs = None

@@ -77,6 +77,14 @@ class BrightnessSensor(PhysicalSensor):
         super().__init__(uniq_id, env)
 
 
+class ProximitySensor(PhysicalSensor):
+
+    def __init__(self, uniq_id, env, position=None):
+        self.sensor_type = 'proximity_sensor'
+        self.position = position
+        super().__init__(uniq_id, env)
+
+
 if __name__ == '__main__':
     dummy_dev = Sensor(uniq_id='000001')
     dummy_dev.send_to_server({'Temperature' : 23., 'timestamp': '12:30'})
