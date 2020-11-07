@@ -1,4 +1,6 @@
-from flask import Flask
+from flask import Flask, request
+import requests
+import json
 
 app = Flask(__name__)
 
@@ -6,22 +8,20 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello, World!'
 
-@app.route('/hello_again')
-def hello_world_again():
-    return 'Hello again, World!'
 
-# @app.route('/', methods=['GET', 'POST'])
-# def index():
-#     if request.method == 'POST':
-#         return render_template('index.html',
-#                                name=request.form['name'])
-#     return render_template('index.html')
+@app.route('/recv_json', methods = ['POST'])
+def recv_json():
+    jsondata = request.get_json()
+    data = json.loads(jsondata)
+    #stuff happens here that involves data to obtain a result
+    print(data)
+    return '0'
 
-
-# @app.route('/favicon.ico')
-# def favicon():
-#     return send_from_directory(os.path.join(app.root_path, 'static'),
-#                     'favicon.ico', mimetype='image/vnd.microsoft.icon')
+@app.route('/send_json', methods = ['GET'])
+def send_json():
+    result = {'escalate': True}
+    #stuff happens here that involves data to obtain a result
+    return json.dumps(result)
 
 if __name__ == '__main__':
     app.run(debug=True)
