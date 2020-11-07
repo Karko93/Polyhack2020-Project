@@ -5,10 +5,10 @@ from websocket.server import iot_server
 
 class IOT_Rules:
 
-    def __init__(self, uniq_id):
+    def __init__(self, uniq_id, sensor_id_list, actuator_id_list):
         self.uniq_id = uniq_id
-        self.sensor_ids = []
-        self.actuator_ids = []
+        self.sensor_ids = sensor_id_list
+        self.actuator_ids = actuator_id_list
         self.data = []
 
 
@@ -21,7 +21,7 @@ class IOT_Rules:
         pass
 
     def send_actuator_jobs(self):
-        decisions = rule_decision(self)
+        decisions = self.rule_decision()
         return (self.actuator_ids, decisions)
 
 if __name__ == '__main__':
