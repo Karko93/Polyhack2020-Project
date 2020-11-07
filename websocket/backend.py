@@ -30,6 +30,13 @@ class IOT_Server:
         device_table = {'ID': ids, 'Type': types}
         return device_table
 
+    def get_device(self, unq_id):
+        if unq_id in self.devices:
+            dev = self.devices[unq_id]
+            if dev.data is not None:
+                return dev.data.to_html()
+        else:
+            return 'device NOT found'
 
 class IOT_Device():
     id = None

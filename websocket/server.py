@@ -15,6 +15,10 @@ def default():
 def devices():
     return html_table(iot_server.describe_all_devices())
 
+@app.route('/devices/<unq_id>')
+def show_device(unq_id):
+    return iot_server.get_device(unq_id)
+
 @app.route('/sensor_com', methods=['POST'])
 def sensor_com():
     jsondata = request.get_json()
