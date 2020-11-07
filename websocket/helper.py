@@ -1,13 +1,7 @@
 import pandas as pd
 from threading import Thread, Lock
 from time import sleep
-import json
 
-
-# with open('rules_config.json') as f:
-#     data = json.load(f)
-#     print(data)
-#     print(getattr(rules, data['rule']))
 
 def html_table(table):
     return pd.DataFrame(data=table).to_html()
