@@ -3,7 +3,6 @@ from iot_device.sensor import Sensor
 class TemperatureSensor(Sensor):
 
     def __init__(self, jsonFile):
-        self.serial = jsonFile['serial']
         self.data = None
         self.data_point = None
 
