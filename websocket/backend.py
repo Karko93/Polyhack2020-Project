@@ -1,13 +1,20 @@
 import pandas as pd
+from threading import RLock
 
 class IOT_Server:
-    devices = None
+    _devices = None
     rules = None
 
     def __init__(self):
         # replace this with something that reads a json file listing the devices
-        self.devices = {}  # key:value pairs of the form id:device
+        self._devices = {}  # key:value pairs of the form id:device
         self.rules = []
+        self.lock = RLock()
+
+    @property
+    def devices(self):
+        with self.lock:
+            return self._devices
 
     def process_sensor(self, message):
         '''
@@ -39,10 +46,11 @@ class IOT_Server:
         return '1'
 
     def describe_all_devices(self):
-        ids = [dev for dev in self.devices]
-        types = [type(self.devices[dev]).__name__ for dev in self.devices]
-        device_table = {'ID': ids, 'Type': types}
-        return device_table
+        with self.lock:
+            ids = [dev for dev in self.devices]
+            types = [type(self.devices[dev]).__name__ for dev in self.devices]
+            device_table = {'ID': ids, 'Type': types}
+            return device_table
 
     def get_device(self, unq_id):
         if unq_id in self.devices:
@@ -51,6 +59,7 @@ class IOT_Server:
                 return dev.data.to_html()
         else:
             return 'device NOT found'
+
 
 class IOT_Device():
     id = None

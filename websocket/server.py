@@ -2,14 +2,25 @@ from flask import Flask, request, render_template
 import requests
 import json
 from websocket.backend import IOT_Server
-from websocket.helper import html_table
+from websocket.helper import html_table, BackgroundWorker
+import threading
+
 app = Flask(__name__, template_folder='html')
 
 iot_server = IOT_Server()
+background_worker = BackgroundWorker(iot_server)
+background_worker.start()
 
 @app.route('/')
 def default():
     return render_template('index.html')
+
+@app.route('/threads')
+def threads():
+    th_list = [th.name for th in threading.enumerate()]
+    print(th_list)
+    return str(0)
+
 
 @app.route('/devices')
 def devices():
@@ -41,4 +52,4 @@ def send_json():
     return json.dumps(result)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
