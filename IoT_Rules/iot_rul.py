@@ -22,7 +22,8 @@ class IOT_Rules:
 
     def send_actuator_jobs(self):
         decisions = self.rule_decision()
-        return (self.actuator_ids, decisions)
+        self.data = []
+        return(self.actuator_ids, decisions)
 
 if __name__ == '__main__':
     dummy_rul = IOT_Rules(uniq_id='000000')
