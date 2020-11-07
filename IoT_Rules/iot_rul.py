@@ -21,9 +21,16 @@ class IOT_Rules:
         pass
 
     def send_actuator_jobs(self):
+<<<<<<< Updated upstream:IoT_Rules/iot_rul.py
         decisions = self.rule_decision()
         self.data = []
         return(self.actuator_ids, decisions)
+=======
+        decisions = rule_decision(self)
+        return (self.actuator_ids, decisions)
+    
+    
+>>>>>>> Stashed changes:iot_Rules/iot_rul.py
 
 if __name__ == '__main__':
     dummy_rul = IOT_Rules(uniq_id='000000')

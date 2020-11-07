@@ -8,7 +8,7 @@ from actuator import Actuator
 
 class SmartLamp(Actuator):
 
-    def __init__(self, jsonFile):
+    def __init__(self):
         self.intensity = 0 # Intensity of the lamp
 
     def SetIntensity(self, value):

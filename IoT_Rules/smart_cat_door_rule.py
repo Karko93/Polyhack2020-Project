@@ -2,10 +2,9 @@ from iot_rul import IOT_Rules
 
 class SmartCatDoor(IOT_Rules):
     
-    def __init__(self,distance_threshold = 0.5):
+    def __init__(self,uniq_id,distance_threshold = 0.5):
+        super().__init__(uniq_id)
         self.threshold = distance_threshold
-        self.ruleIsTrue = False
-        
         
         
     def rule_decision(self):
