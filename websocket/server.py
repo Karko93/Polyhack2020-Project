@@ -17,11 +17,13 @@ def recv_json():
     print(data)
     return '0'
 
+
 @app.route('/send_json', methods = ['GET'])
 def send_json():
     result = {'escalate': True}
     #stuff happens here that involves data to obtain a result
     return json.dumps(result)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
