@@ -3,7 +3,8 @@ from iot_rul import IOT_Rules
 
 class SmartStreetLight(IOT_Rules):
 
-    def __init__(self):
+    def __init__(self, uniq_id):
+        super().__init__(uniq_id)
         self.ruleIsTrue = False
 
     def rule_decision(self):
