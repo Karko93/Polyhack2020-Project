@@ -45,7 +45,7 @@ class IOT_Server:
             dev.kind = message['ancestors'][-2]
             self.devices[message['id']] = dev
 
-        dev.add_data(message['data'])
+        dev.jobs = message['jobs']
         return '1'
 
     def describe_all_sensors(self):
@@ -80,12 +80,12 @@ class IOT_Server:
 
 
 class IOT_Device():
-    id = None
+    uniq_id = None
     data = None
     kind = None
 
-    def __init__(self, id):
-        self.id = id
+    def __init__(self, uniq_id):
+        self.uniq_id = uniq_id
 
     def add_data(self, data):
         if self.data is None:
@@ -129,19 +129,9 @@ class ProximitySensor(Sensor):
 class Actuator(IOT_Device):
     jobs = None
 
-    def __init__(self, id, data_names):
-        super().__init__(id, data_names)
+    def __init__(self, id):
+        super().__init__(id)
         self.jobs = {}
-
-    def describe_device(self):
-        data_string = '        \n'.join(['{}:{}'.format(key, value) for key, value in self.data.items()])
-        jobs_string = '        \n'.join(['{}:{}'.format(key, value) for key, value in self.jobs.items()])
-        out = ('Device name: {name}\n'
-               '  data: {data}\n'
-               '  jobs: {jobs}').format(name=self.id,
-                                        data=data_string,
-                                        jobs=jobs_string)
-        return out
 
 
 if __name__ == '__main__':
@@ -149,6 +139,6 @@ if __name__ == '__main__':
     door_positioner = Actuator('door_positioner_1', ['door_position'])
 
     iot_server = IOT_Server()
-    iot_server.devices = {environmental_sensor.id: environmental_sensor,
-                          door_positioner.id: door_positioner}
+    iot_server.devices = {environmental_sensor.uniq_id: environmental_sensor,
+                          door_positioner.uniq_id: door_positioner}
 

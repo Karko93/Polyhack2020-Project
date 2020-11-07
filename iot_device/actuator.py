@@ -11,10 +11,8 @@ class Actuator(IOT_Device):
         """Call the host for the first time and pass its object information."""
         message = {'id': self.uniq_id, 'ancestors': self.ancestors, 'jobs': self.jobs}
         retval = self._post('actuator_com', message)
-        if retval == 0:
-            self.initialized = True
 
 
 if __name__ == '__main__':
-    dummy_dev = Actuator(uniq_id='000000')
+    dummy_dev = Actuator(uniq_id='000100')
     print(dummy_dev.ancestors)

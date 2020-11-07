@@ -1,4 +1,4 @@
-from iot_rul import IOT_Rules
+from IoT_Rules.iot_rul import IOT_Rules
 
 class SmartFloodLight(IOT_Rules):
     def __init__(self,uniq_id):
@@ -12,4 +12,3 @@ class SmartFloodLight(IOT_Rules):
         else:
             return [False for i in range(len(self.actuator_ids))]
         
-    

@@ -1,10 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Nov  7 13:34:14 2020
-
-@author: user
-"""
-from actuator import Actuator
+from iot_device.actuator import Actuator
 
 class SmartDoorLock(Actuator):
     
@@ -25,5 +19,4 @@ class SmartDoorLock(Actuator):
         ### Callback to Server is needed
         ### Callback to Environment needed
         
-    
     

@@ -1,10 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Nov  7 15:22:22 2020
-
-@author: user
-"""
-from actuator import Actuator
+from iot_device.actuator import Actuator
 
 class SmartLamp(Actuator):
 

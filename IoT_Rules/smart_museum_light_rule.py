@@ -1,4 +1,4 @@
-from iot_rul import IOT_Rules
+from IoT_Rules.iot_rul import IOT_Rules
 
 class SmartMuseumsLight(IOT_Rules):
     
@@ -9,4 +9,3 @@ class SmartMuseumsLight(IOT_Rules):
         else:
             return [False for i in range(len(self.actuator_ids))]
         
-    

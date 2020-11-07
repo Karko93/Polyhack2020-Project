@@ -15,10 +15,9 @@ iot_server = IOT_Server()
 def default():
     return render_template('index.html')
 
-@app.route('/threads')
-def threads():
-    th_list = [th.name for th in threading.enumerate()]
-    print(th_list)
+@app.route('/parse_rules')
+def parse_rules():
+    print('hello')
     return str(0)
 
 
