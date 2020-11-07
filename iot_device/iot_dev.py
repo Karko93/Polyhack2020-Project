@@ -8,7 +8,6 @@ class IOT_Device:
     def __init__(self, id):
         self.id = id
         self.get_hierarchy()
-        self.init_at_host()
 
     def _post(self, address, message):
         """Wrapper function for POST interaction with the server."""
@@ -19,12 +18,12 @@ class IOT_Device:
         except:
             return 1
 
-    def init_at_host(self):
-        """Call the host for the first time and pass its object information."""
-        message = {'id': self.id, 'ancestors': self.ancestors}
-        retval = self._post('recv_json', message)
-        if retval == 0:
-            self.initialized = True
+    # def init_at_host(self):
+    #     """Call the host for the first time and pass its object information."""
+    #     message = {'id': self.id, 'ancestors': self.ancestors}
+    #     retval = self._post('recv_json', message)
+    #     if retval == 0:
+    #         self.initialized = True
 
     def get_hierarchy(self):
         """Get all parent classes and its own class of an instance and store them as a member variable ancestors"""
