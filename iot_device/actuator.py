@@ -10,7 +10,7 @@ class Actuator(IOT_Device):
     def init_at_host(self):
         """Call the host for the first time and pass its object information."""
         message = {'id': self.uniq_id, 'ancestors': self.ancestors, 'jobs': self.jobs}
-        retval = self._post('recv_json', message)
+        retval = self._post('actuator_com', message)
         if retval == 0:
             self.initialized = True
 
