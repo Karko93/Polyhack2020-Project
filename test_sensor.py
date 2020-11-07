@@ -18,15 +18,13 @@ class EnvironmentManager(Thread):
 info = {'serial' : 0,
         'sensor_type' : 'temp'}
 
-sensor = TemperatureSensor(info)
 env = Environment({info['serial'] : info['sensor_type']})
+sensor = TemperatureSensor(info, env)
 
 clock = EnvironmentManager(env)
 clock.start()
 
-sensor.read_data(env).parse_data()
 print(sensor.data)
 
 sleep(2)
-sensor.read_data(env).parse_data()
 print(sensor.data)
