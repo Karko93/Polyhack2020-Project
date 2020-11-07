@@ -1,7 +1,9 @@
 from iot_device.environment import Environment
-from iot_device.temperature_sensor import TemperatureSensor
+from iot_device.sensor import *
 from threading import Thread
 from time import sleep
+
+import json
 
 
 class EnvironmentManager(Thread):
@@ -16,14 +18,30 @@ class EnvironmentManager(Thread):
             self.env.update_environment()
             sleep(0.1)
 
-list_of_sensors = {'0'.zfill(6) : 'temp', '1'.zfill(6) : 'temp', '2'.zfill(6) : 'temp'}
-# list_of_sensors = {'0'.zfill(6) : 'temp'}
-
-env = Environment(list_of_sensors)
+env = Environment()
 sensors = []
 
-for id in list_of_sensors:
-    sensors.append(TemperatureSensor(id, env))
+counter = 0
+
+for id in range(5):
+    sensors.append(TemperatureSensor(str(counter).zfill(6), env))
+    counter += 1
+
+for id in range(5):
+    sensors.append(HumiditySensor(str(counter).zfill(6), env))
+    counter += 1
+
+for id in range(5):
+    sensors.append(NoiseSensor(str(counter).zfill(6), env))
+    counter += 1
+
+for id in range(5):
+    sensors.append(MotionSensor(str(counter).zfill(6), env))
+    counter += 1
+
+for id in range(10):
+    sensors.append(BrightnessSensor(str(counter).zfill(6), env))
+    counter += 1
 
 clock = EnvironmentManager(env)
 clock.start()
@@ -31,5 +49,4 @@ clock.start()
 for sensor in sensors:
     data = sensor.data
     print(sensor.uniq_id, data)
-    task = sensor.send_to_server(data)
-    print(task)
+    sensor.send_to_server(data)
