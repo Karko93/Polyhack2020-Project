@@ -13,8 +13,19 @@ class IOT_Server:
         :param message: dictionary received from a client device
         :return:
         '''
-        # Check ID of device that wrote in
-        dev = self.devices[message['id']]
+        # Check ID of device that wrote in. Create the device is it's unkown
+        if message['id'] in self.devices:
+            dev = self.devices[message['id']]
+        else:
+            if 'data' not in message:
+                return {}
+            data_names = list(message['data'].keys())
+            if 'Actuator' in message['ancestors']:
+                dev = Actuator(message['id'], data_names)
+            else:
+                dev = Sensor(message['id'], data_names)
+            self.devices[message['id']] = dev
+
 
         # store device data (sensor data, actuator state, ...)
         if 'data' in message:
@@ -45,7 +56,7 @@ class IOT_Device():
         self.data = {data_name: [] for data_name in data_names}
 
     def add_data(self, data):
-        for key, value in data:
+        for key, value in data.items():
             self.data[key].append(value)
 
     def describe_device(self):
