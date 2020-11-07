@@ -70,7 +70,28 @@ class IOT_Device():
 class Sensor(IOT_Device):
     pass
 
+
+class PhysicalSensor(Sensor):
+    pass
+
+
 class TemperatureSensor(Sensor):
+    pass
+
+
+class HumiditySensor(Sensor):
+    pass
+
+
+class MotionSensor(Sensor):
+    pass
+
+
+class NoiseSensor(Sensor):
+    pass
+
+
+class BrightnessSensor(Sensor):
     pass
 
 
