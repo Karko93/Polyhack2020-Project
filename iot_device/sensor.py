@@ -39,36 +39,41 @@ class PhysicalSensor(Sensor):
 
 class TemperatureSensor(PhysicalSensor):
 
-    def __init__(self, uniq_id, env):
+    def __init__(self, uniq_id, env, position=None):
         self.sensor_type = 'temperature'
+        self.position = position
         super().__init__(uniq_id, env)
 
 
 class HumiditySensor(PhysicalSensor):
 
-    def __init__(self, uniq_id, env):
+    def __init__(self, uniq_id, env, position=None):
         self.sensor_type = 'humidity'
+        self.position = position
         super().__init__(uniq_id, env)
 
 
 class MotionSensor(PhysicalSensor):
 
-    def __init__(self, uniq_id, env):
+    def __init__(self, uniq_id, env, position=None):
         self.sensor_type = 'motion_sensor'
+        self.position = position
         super().__init__(uniq_id, env)
 
 
 class NoiseSensor(PhysicalSensor):
 
-    def __init__(self, uniq_id, env):
+    def __init__(self, uniq_id, env, position=None):
         self.sensor_type = 'noise_detector'
+        self.position = position
         super().__init__(uniq_id, env)
 
 
 class BrightnessSensor(PhysicalSensor):
 
-    def __init__(self, uniq_id, env):
+    def __init__(self, uniq_id, env, position=None):
         self.sensor_type = 'brightness_sensor'
+        self.position = position
         super().__init__(uniq_id, env)
 
 
