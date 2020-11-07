@@ -8,8 +8,8 @@ import threading
 app = Flask(__name__, template_folder='html')
 
 iot_server = IOT_Server()
-background_worker = BackgroundWorker(iot_server)
-background_worker.start()
+# background_worker = BackgroundWorker(iot_server)
+# background_worker.start()
 
 @app.route('/')
 def default():
@@ -22,11 +22,16 @@ def threads():
     return str(0)
 
 
-@app.route('/devices')
-def devices():
-    return html_table(iot_server.describe_all_devices())
+@app.route('/sensors')
+def sensors():
+    return html_table(iot_server.describe_all_sensors())
 
-@app.route('/devices/<unq_id>')
+@app.route('/actuators')
+def actuators():
+    return html_table(iot_server.describe_all_actuators())
+
+
+@app.route('/sensors/<unq_id>')
 def show_device(unq_id):
     return iot_server.get_device(unq_id)
 

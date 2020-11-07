@@ -15,6 +15,6 @@ class BackgroundWorker(Thread):
 
     def run(self):
         while True:
-            device_table = self.iot_server.describe_all_devices()
+            device_table = self.iot_server.describe_all_sensors()
             print(device_table)
             sleep(5)

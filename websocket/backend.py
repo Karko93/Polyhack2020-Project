@@ -1,5 +1,6 @@
 import pandas as pd
 from threading import RLock
+from datetime import datetime as dt
 
 class IOT_Server:
     _devices = None
@@ -26,6 +27,7 @@ class IOT_Server:
             dev = self.devices[message['id']]
         else:
             dev = globals()[message['ancestors'][0]](message['id'])
+            dev.kind = message['ancestors'][-2]
             self.devices[message['id']] = dev
 
         dev.add_data(message['data'])
@@ -40,17 +42,33 @@ class IOT_Server:
             dev = self.devices[message['id']]
         else:
             dev = globals()[message['ancestors'][0]](message['id'])
+            dev.kind = message['ancestors'][-2]
             self.devices[message['id']] = dev
 
         dev.add_data(message['data'])
         return '1'
 
-    def describe_all_devices(self):
+    def describe_all_sensors(self):
         with self.lock:
-            ids = [dev for dev in self.devices]
-            types = [type(self.devices[dev]).__name__ for dev in self.devices]
+            ids = []
+            types = []
+            latest_timestamps = []
+
+            for dev in self.devices:
+                if self.devices[dev].kind=='Sensor':
+                    ids.append(dev)
+                    types.append(type(self.devices[dev]).__name__)
+                    latest_timestamps.append(dt.utcfromtimestamp(self.devices[dev].data['timestamp']))
+            device_table = {'ID': ids, 'Type': types, 'Timestamps' : latest_timestamps}
+            return device_table
+
+    def describe_all_actuators(self):
+        with self.lock:
+            ids = [dev for dev in self.devices if self.devices[dev].kind=='Actuator']
+            types = [type(self.devices[dev]).__name__ for dev in self.devices if self.devices[dev].kind=='Actuator']
             device_table = {'ID': ids, 'Type': types}
             return device_table
+
 
     def get_device(self, unq_id):
         if unq_id in self.devices:
@@ -64,6 +82,7 @@ class IOT_Server:
 class IOT_Device():
     id = None
     data = None
+    kind = None
 
     def __init__(self, id):
         self.id = id
@@ -73,7 +92,7 @@ class IOT_Device():
             self.data = pd.DataFrame(data, index=[0])
         else:
             self.data = self.data.append(data, ignore_index=True)
-        print(self.data)
+        # print(self.data)
 
 
 class Sensor(IOT_Device):
