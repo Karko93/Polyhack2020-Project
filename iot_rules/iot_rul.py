@@ -2,7 +2,6 @@ import json
 import requests
 from websocket.server import iot_server
 
-
 class IOT_Rules:
 
     def __init__(self, uniq_id, sensor_id_list, actuator_id_list):
@@ -10,6 +9,7 @@ class IOT_Rules:
         self.sensor_ids = sensor_id_list
         self.actuator_ids = actuator_id_list
         self.data = []
+        self.sensor_types = []
 
 
     def collect_sensor_data(self):
@@ -24,6 +24,8 @@ class IOT_Rules:
         decisions = self.rule_decision()
         self.data = []
         return(self.actuator_ids, decisions)
+
+
 
 if __name__ == '__main__':
     dummy_rul = IOT_Rules(uniq_id='000000')

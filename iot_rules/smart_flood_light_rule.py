@@ -1,10 +1,6 @@
-from IoT_Rules.iot_rul import IOT_Rules
+from iot_rules.iot_rul import IOT_Rules
 
 class SmartFloodLight(IOT_Rules):
-    def __init__(self,uniq_id):
-        super().__init__(uniq_id)
-        
-        
     def rule_decision(self):
         
         if self.data[0] == True and self.data[1]==True:

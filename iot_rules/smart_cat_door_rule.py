@@ -1,4 +1,4 @@
-from IoT_Rules.iot_rul import IOT_Rules
+from iot_rules.iot_rul import IOT_Rules
 
 class SmartCatDoor(IOT_Rules):
     

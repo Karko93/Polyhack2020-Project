@@ -1,0 +1,3 @@
+{"rule" :  "IOT_Rules",
+"sensors" :  ["00000"],
+"actuators" :  ["00001"]}
