@@ -56,6 +56,7 @@ class IOT_Device():
             self.data = pd.DataFrame(data, index=[0])
         else:
             self.data = self.data.append(data, ignore_index=True)
+        print(self.data)
 
     def describe_device(self):
         data_string = '        \n'.join(['{}:{}'.format(key, value) for key, value in self.data.items()])
