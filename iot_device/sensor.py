@@ -8,9 +8,6 @@ class Sensor(IOT_Device):
     def send_to_server(self, data):
         message = {'id': self.uniq_id, 'ancestors': self.ancestors, 'data':data}
         retval = self._post('sensor_com', message)
-        #if retval == 0:
-        #    success = True
-        return True if retval == 0 else False
 
 
 if __name__ == '__main__':
