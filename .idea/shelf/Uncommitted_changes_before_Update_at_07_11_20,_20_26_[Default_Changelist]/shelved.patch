@@ -1,0 +1,39 @@
+Index: iot_rules/iot_rules.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- iot_rules/iot_rules.py	(date 1604776474855)
++++ iot_rules/iot_rules.py	(date 1604776474855)
+@@ -0,0 +1,31 @@
++import json
++import requests
++
++class IOT_Rules:
++
++    def __init__(self, uniq_id):
++        self.uniq_id = uniq_id
++        self.actuators = None
++        self.sensors = None
++
++    def _post(self, address, message):
++        """Wrapper function for POST interaction with the server."""
++        s = json.dumps(message)
++        host = self.hostname + address
++        try:
++            return int(requests.post(host, json=s).content)
++        except:
++            return 1
++
++    def check_sensordata(self):
++
++        pass
++
++    def drive_actuators(self):
++        pass
++
++
++
++if __name__ == '__main__':
++    dummy_rule = IOT_Rule(uniq_id='000000')
++    print(dummy_rule.get_hierarchy())
