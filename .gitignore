@@ -5,4 +5,5 @@
 .idea/modules.xml
 .idea/Polyhack2020-Project.iml
 .idea/vcs.xml
-*.pyc
+**/*.pyc
+**/*.patch
