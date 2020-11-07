@@ -1,3 +1,4 @@
+import pandas as pd
 
 class IOT_Server:
     devices = None
@@ -14,22 +15,14 @@ class IOT_Server:
         :return:
         '''
         # Check ID of device that wrote in. Create the device is it's unkown
+        print('hello')
         if message['id'] in self.devices:
             dev = self.devices[message['id']]
         else:
-            if 'data' not in message:
-                return {}
-            data_names = list(message['data'].keys())
-            if 'Actuator' in message['ancestors']:
-                dev = Actuator(message['id'], data_names)
-            else:
-                dev = Sensor(message['id'], data_names)
+            dev = globals()[message['ancestors'][0]](message['id'])
             self.devices[message['id']] = dev
 
-
-        # store device data (sensor data, actuator state, ...)
-        if 'data' in message:
-            dev.add_data(message['data'])
+        dev.add_data(message['data'])
 
         response = {}  # Store default respons value here (e.g. {'success':True})
 
@@ -43,21 +36,26 @@ class IOT_Server:
     # check whether this triggers any rules (in a thread)
 
     def describe_all_devices(self):
-        devices_string = '\n\n'.join([dev.describe_device() for dev in self.devices.values()])
-        return devices_string if devices_string else 'None'
+        ids = [dev for dev in self.devices]
+        types = [type(self.devices[dev]).__name__ for dev in self.devices]
+        device_table = {'ID': ids, 'Type': types}
+        return device_table
+        # devices_string = '\n\n'.join([dev.describe_device() for dev in self.devices.values()])
+        # return devices_string if devices_string else 'None'
 
 
 class IOT_Device():
     id = None
     data = None
 
-    def __init__(self, id, data_names):
+    def __init__(self, id):
         self.id = id
-        self.data = {data_name: [] for data_name in data_names}
 
     def add_data(self, data):
-        for key, value in data.items():
-            self.data[key].append(value)
+        if self.data is None:
+            self.data = pd.DataFrame(data, index=[0])
+        else:
+            self.data = self.data.append(data, ignore_index=True)
 
     def describe_device(self):
         data_string = '        \n'.join(['{}:{}'.format(key, value) for key, value in self.data.items()])

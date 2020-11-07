@@ -2,14 +2,14 @@ from flask import Flask, request
 import requests
 import json
 from websocket.backend import IOT_Server
-
+from websocket.helper import html_table
 app = Flask(__name__)
 
 iot_server = IOT_Server()
 
-@app.route('/')
+@app.route('/devices')
 def default():
-    return iot_server.describe_all_devices()
+    return html_table(iot_server.describe_all_devices())
 
 @app.route('/recv_json', methods=['POST'])
 def recv_json():
@@ -25,5 +25,4 @@ def send_json():
     return json.dumps(result)
 
 if __name__ == '__main__':
-
     app.run(debug=True)
