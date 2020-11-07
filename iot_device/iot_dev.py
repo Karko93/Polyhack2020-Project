@@ -5,8 +5,8 @@ class IOT_Device:
     hostname = 'http://127.0.0.1:5000/'
     initialized = False
     ancestors = []
-    def __init__(self, id):
-        self.id = id
+    def __init__(self, uniq_id):
+        self.uniq_id = uniq_id
         self.get_hierarchy()
 
     def _post(self, address, message):
