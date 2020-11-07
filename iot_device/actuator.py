@@ -17,7 +17,6 @@ class Actuator(IOT_Device):
 
 
 class SmartDoorLock(Actuator):
-
     def __init__(self, uniq_id):
         super().__init__(uniq_id)
         self.isDoorOpen = True  # State if door is open
@@ -25,9 +24,25 @@ class SmartDoorLock(Actuator):
 
     def update_status(self):
         if self.openJobs:
-            self.isDoorOpen = self.openJobs[0]
+            self.isDoorOpen = self.openJobs[-1]
+            self.openJobs = []
 
+    def update_status(self):
+        if self.openJobs:
+            self.heating_on = self.openJobs[-1]
+            self.openJobs = []
 
+class MotorPosition(Actuator):
+    def __init__(self, uniq_id, position_x = 0, position_y = 0):
+        super().__init__(uniq_id)
+        self.position_x = position_x # heating switched on
+        self.position_y = position_y
+
+    def update_status(self):
+        if self.openJobs:
+            self.position_x = self.openJobs[-2]
+            self.position_y = self.openJobs[-1]
+            self.openJobs = []
 
 class SmartLamp(Actuator):
     def __init__(self, uniq_id):
@@ -35,13 +50,30 @@ class SmartLamp(Actuator):
         self.intensity = 0  # Intensity of the lamp
         self.openJobs = []
 
+    # Check if there are open jobs and update the intensity according to the las value
     def update_status(self):
         if self.openJobs:
             self.intensity = self.openJobs[-1]
+            self.openJobs = []
 
 
+class Heating(Actuator):
+    def __init__(self, uniq_id):
+        super().__init__(uniq_id)
+        self.heating_on = 0  # heating switched on
+        self.openJobs = []
 
 
+class Sprinkler(Actuator):
+    def __init__(self, uniq_id):
+        super().__init__(uniq_id)
+        self.water_running = 0  # sprinkler switched on
+        self.openJobs = []
+
+    def update_status(self):
+        if self.openJobs:
+            self.water_running = self.openJobs[-1]
+            self.openJobs = []
 
 if __name__ == '__main__':
     dummy_dev = Actuator(uniq_id='000100')
