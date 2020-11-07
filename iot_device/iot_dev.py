@@ -33,5 +33,5 @@ class IOT_Device:
             cls = cls.__bases__[0]
 
 if __name__ == '__main__':
-    dummy_dev = IOT_Device(id='000000')
+    dummy_dev = IOT_Device(uniq_id='000000')
     print(dummy_dev.get_hierarchy())
