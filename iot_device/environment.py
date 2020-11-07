@@ -23,6 +23,8 @@ def initialize(sensor_type):
         return 50.0 + np.random.normal(scale=10)
     elif sensor_type == 'proximity_sensor':
         return np.random.rand() > 0.5
+    elif sensor_type == 'airquality_sensor':
+        return np.random.rand()
 
 
 class Environment():
