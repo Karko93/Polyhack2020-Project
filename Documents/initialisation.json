@@ -1,68 +1,68 @@
 [{
-  "serial": 1,
+  "serial": "001",
   "type": "sensor",
   "ancestor": "brightness",
   "position":{
     "x": 63.410847,
     "y":  12.537878}
 }, {
-  "serial": 2,
+  "serial": "002",
   "type": "sensor",
   "ancestor": "temperature",
   "position":{
     "x": 17.410847,
     "y":  8.537878}
 }, {
-  "serial": 3,
+  "serial": "003",
   "type": "sensor",
   "ancestor": "proximity",
   "position":{
     "x": 47.410847,
     "y":  18.537878}
 }, {
-  "serial": 4,
+  "serial": "004",
   "type": "sensor",
   "ancestor": "noise",
   "position":{
     "x": 46.410847,
     "y":  27.537178}
 }, {
-  "serial": 5,
+  "serial": "005",
   "type": "sensor",
   "ancestor": "distance",
   "position":{
     "x": 57.410847,
     "y":  18.537878}
 }, {
-  "serial": 6,
+  "serial": "006",
   "type": "sensor",
   "ancestor": "motion",
   "position":{
     "x": 43.410847,
     "y":  2.537878}
 }, {
-  "serial": 7,
+  "serial": "007",
   "type": "sensor",
   "ancestor": "humidity",
   "position":{
     "x": 32.410847,
     "y":  10.125378}
 },{
-  "serial": 8,
+  "serial": "008",
   "type": "sensor",
   "ancestor": "humidity",
   "position": {
     "x": 39.410847,
     "y": 9.137878}
     }, {
-  "serial": 9,
+  "serial": "009",
   "type": "sensor",
   "ancestor": "airquality",
   "position": {
     "x": 37.410847,
     "y": 10.547878}
     }, {
-  "serial": 10,
+  "serial": "010",
   "type": "sensor",
   "ancestor": "temperature",
   "position": {

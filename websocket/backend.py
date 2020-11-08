@@ -37,6 +37,7 @@ class IOT_Server:
             self.devices[message['id']] = dev
 
         dev.add_data(message['data'])
+        dev.data = dev.data.iloc[-50:]
 
     def process_actuator(self, message):
         '''
@@ -52,7 +53,7 @@ class IOT_Server:
             self.devices[message['id']] = dev
 
         dev.add_data(message['data'])
-        # print(dev, dev.jobs)
+        dev.data = dev.data.iloc[-50:]
         return dev.jobs
 
     def describe_all_sensors(self):
@@ -65,7 +66,7 @@ class IOT_Server:
                 if self.devices[dev].kind=='Sensor':
                     ids.append(dev)
                     types.append(type(self.devices[dev]).__name__)
-                    latest_timestamps.append(dt.utcfromtimestamp(self.devices[dev].data['timestamp'].iloc[-1]))
+                    latest_timestamps.append(self.devices[dev].data['timestamp'].iloc[-1])
             device_table = {'ID': ids, 'Type': types, 'Timestamps' : latest_timestamps}
             return device_table
 
@@ -82,6 +83,30 @@ class IOT_Server:
 
             device_table = {'ID': ids, 'Type': types, 'jobs': jobs}
             return device_table
+
+    def describe_all_rules(self):
+        with self.lock:
+            # print(dir(self.rules[0]))
+            # ids = []
+            # types = []
+            all_params = []
+            for rule in self.rules:
+                members = dir(rule)
+                members = [mem for mem in members if not mem.startswith('__')]
+                members.remove('uniq_id')
+                members.remove('rule_decision')
+                members.remove('data')
+                members = ['uniq_id'] + members
+                params = {mem: getattr(rule, mem) for mem in members}
+                all_params.append(params)
+            return pd.DataFrame(all_params)[members].to_html()
+
+            #         ids.append(rule)
+            #         types.append(type(self.devices[dev]).__name__)
+            #         jobs.append(self.devices[dev].jobs)
+
+            # device_table = {'ID': ids, 'Type': types, 'jobs': jobs}
+            # return device_table
 
 
     def get_sensor(self, unq_id):
@@ -110,6 +135,7 @@ class IOT_Device():
         self.uniq_id = uniq_id
 
     def add_data(self, data):
+        data['timestamp'] = dt.utcfromtimestamp(data['timestamp'])
         if self.data is None:
             self.data = pd.DataFrame(data, index=[0])
         else:
