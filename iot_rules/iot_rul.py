@@ -1,20 +1,19 @@
 import operator
 
 class IOT_Rules:
-    def __init__(self, uniq_id, sensor_id_list, actuator_id_list):
+    def __init__(self, uniq_id, sensor_id_list, actuator_id_list,
+                 actuator_value_True, actuator_value_False=None):
         self.uniq_id = uniq_id
         self.sensor_ids = sensor_id_list
         self.actuator_ids = actuator_id_list
         self.data = []
         self.sensor_reading = []
         self.actuator_output = []
-
+        self.actuator_value_True = actuator_value_True
+        self.actuator_value_False = actuator_value_False
         self.comparisons = []
         self.thresholds = []
         self.requirement = 'all'
-
-    # TODO: ADD METHOD FOR READING DATA FROM BACKEND
-    # TODO: ADD METHOD FOR ADDING JOB TO BACKEND
 
     def rule_decision(self):
         comp_operators = [{'>': operator.gt, '<': operator.lt, '=': operator.eq, '!=': operator.ne, }[comp] for

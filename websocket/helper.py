@@ -41,8 +41,15 @@ class BackgroundWorker(Thread):
 
                 # Send jobs based on decision
                 if rule.rule_decision():
-                    for actuator_id, output in zip(rule.actuator_ids, rule.actuator_output):
-                        self.iot_server.devices[actuator_id].jobs = output
+                    actuator_value = rule.actuator_value_True
+                elif rule.actuator_value_False is not None:
+                    actuator_value = rule.actuator_value_False
+                else: continue
+
+                for actuator_id, output, value in zip(rule.actuator_ids,
+                                               rule.actuator_output,
+                                               actuator_value):
+                    self.iot_server.devices[actuator_id].jobs = {output: value}
                 rule.data = []
 
             sleep(5)

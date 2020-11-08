@@ -62,7 +62,7 @@ class SmartLamp(Actuator):
         else:
             for job in retval:
                 if job == 'switch':
-                    self.data['intensity'] = float(not self.data['intensity'])
+                    self.data['intensity'] = retval[job]
 
 
 class Heating(Actuator):
