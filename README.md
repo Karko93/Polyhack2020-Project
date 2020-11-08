@@ -3,7 +3,7 @@
 Use following command to install the required libraries:
 > pip install pandas\
 > pip install numpy\
-> pip install Flask\
+> pip install -U Flask
 ## Executing Code
 
 
