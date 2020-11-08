@@ -6,9 +6,9 @@ from websocket.helper import html_table, BackgroundWorker
 import threading
 
 # suppress output to console
-# import logging
-# log = logging.getLogger('werkzeug')
-# log.setLevel(logging.ERROR)
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
 app = Flask(__name__, template_folder='html')
 
@@ -19,12 +19,6 @@ background_worker.start()
 @app.route('/')
 def default():
     return render_template('index.html')
-
-@app.route('/parse_rules')
-def parse_rules():
-    print('hello')
-    return str(0)
-
 
 @app.route('/sensors')
 def sensors():
