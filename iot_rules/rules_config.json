@@ -1,7 +1,7 @@
 [{"rule" :  "SmartStreetLight",
   "uniq_id" : "000000",
 "sensor_id_list" :  ["000015","000010"],
-"actuator_id_list" :  ["000030"],
+"actuator_id_list" :  ["000030", "000032"],
 "actuator_value_True": ["1"],
 "actuator_value_False": ["0"]},
 {"rule" :  "SmartCatDoor",

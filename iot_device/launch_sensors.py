@@ -62,7 +62,9 @@ if __name__=='__main__':
     #     counter += 1
 
     for id in range(2):
-        actuators.append(SmartLamp(str(counter).zfill(6),))
+        actuators.append(SmartLamp(str(counter).zfill(6)))
+        counter += 1
+        actuators.append(SmartDoorLock(str(counter).zfill(6)))
         counter += 1
 
     while True:

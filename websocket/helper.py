@@ -48,9 +48,10 @@ class BackgroundWorker(Thread):
                 elif rule.actuator_value_False is not None:
                     actuator_value = rule.actuator_value_False
                 else: continue
+                n = len(rule.actuator_ids)
                 for actuator_id, output, value in zip(rule.actuator_ids,
-                                               rule.actuator_output,
-                                               actuator_value):
+                                               rule.actuator_output * n,
+                                               actuator_value * n):
                     self.iot_server.devices[actuator_id].jobs = {output: value}
                 rule.data = []
 

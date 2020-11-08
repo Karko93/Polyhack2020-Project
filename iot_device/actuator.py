@@ -7,6 +7,7 @@ class Actuator(IOT_Device):
         super().__init__(uniq_id)
         self.actuator_type = None
         self.status = None
+        self.data = None
 
     def send_to_server(self):
         message = {'id': self.uniq_id, 'ancestors': self.ancestors, 'data': self.data}
