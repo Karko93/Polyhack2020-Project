@@ -2,6 +2,10 @@ import json
 import numpy as np
 import random
 
+number_of_sensors = 1000
+number_of_actuators = 1000
+
+
 filename_sensors = 'initialisation_sensors.json'
 filename_actuators = 'initialisation_actuators.json'
 
@@ -38,8 +42,8 @@ def create_actuator():
     return dic
 
 
-actuators = [create_actuator() for i in range(10)]
-sensors = [create_sensor() for i in range(10)]
+actuators = [create_actuator() for i in range(number_of_actuators)]
+sensors = [create_sensor() for i in range(number_of_sensors)]
 
 with open(filename_sensors, 'w') as f:
     json.dump(sensors, f)
