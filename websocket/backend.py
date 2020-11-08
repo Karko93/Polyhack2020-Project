@@ -64,7 +64,7 @@ class IOT_Server:
                 if self.devices[dev].kind=='Sensor':
                     ids.append(dev)
                     types.append(type(self.devices[dev]).__name__)
-                    latest_timestamps.append(dt.utcfromtimestamp(self.devices[dev].data['timestamp']))
+                    latest_timestamps.append(dt.utcfromtimestamp(self.devices[dev].data['timestamp'].iloc[-1]))
             device_table = {'ID': ids, 'Type': types, 'Timestamps' : latest_timestamps}
             return device_table
 
