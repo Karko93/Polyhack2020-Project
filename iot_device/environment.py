@@ -1,19 +1,7 @@
 import numpy as np
 
-def initialize_temperature():
-    return 25.0 + np.random.normal(scale=10)
-
-def initialize_humidity():
-    return 50.0 + np.random.normal(scale=10)
-
-def initialize_motion_sensor():
-    return np.random.rand() > 0.5
-
-def initialize_noise_detector():
-    return np.random.rand() > 0.5
-
 def initialize(sensor_type):
-    if sensor_type == 'noise_detector' or sensor_type == 'motion_sensor':
+    if sensor_type == 'noise_detector' or sensor_type == 'motion':
         return np.random.rand() > 0.5
     elif sensor_type == 'temperature':
         return 25.0 + np.random.normal(scale=10)
@@ -21,47 +9,32 @@ def initialize(sensor_type):
         return 50.0 + np.random.normal(scale=10)
     elif sensor_type == 'brightness':
         return 50.0 + np.random.normal(scale=10)
-    elif sensor_type == 'proximity_sensor':
+    elif sensor_type == 'proximity':
         return np.random.rand() > 0.5
-    elif sensor_type == 'airquality_sensor':
+    elif sensor_type == 'distance':
+        return 5*np.random.rand()
+    elif sensor_type == 'airquality':
         return np.random.rand()
     elif sensor_type == 'antenna':
         return [np.random.rand() for i in range(100)]
-
+    else:
+        raise ValueError('Sensor type {} unknown'.format(sensor_type))
 
 class Environment():
 
-    sensors = {} # this will be in form {'id1':{'temperature', value, fixed'}}
+    sensors = None # this will be in form {'id1':{'temperature', value, fixed'}}
 
-    def __init__(self, sensors=None):
+    def __init__(self, sensors={}):
         """
 
         :param sensors: dictionary of sensor connected to it (id : type_of_sensor)
         """
-        if sensors is not None:
-            for (sensor, sensor_type) in sensors.items():
-                if sensor_type in 'temperature':
-                    self.sensors[sensor] = {'sensor_type' : 'temperature',
-                                            'value' : initialize_temperature(),
-                                            'fixed' : False}
-                elif sensor_type in 'humidity':
-                    self.sensors[sensor] = {'sensor_type' : 'humidity',
-                                            'value' : initialize_humidity(),
-                                            'fixed' : False}
-                elif sensor_type in 'motion_sensor':
-                    self.sensors[sensor] = {'sensor_type' : 'motion_sensor',
-                                            'value' : initialize_motion_sensor(),
-                                            'fixed' : False}
-                elif sensor_type in 'smart_noise_detector':
-                    self.sensors[sensor] = {'sensor_type' : 'noise_detector',
-                                            'value': initialize_noise_detector(),
-                                            'fixed' : False}
-                elif sensor_type in 'antenna':
-                    self.sensors[sensor] = {'sensor_type' : 'antenna',
-                                            'value' : initialize('antenna'),
-                                            'fixed' : False}
-                else:
-                    raise Exception('Sensor type unknown.')
+        self.sensors = {}
+        for sensor, sensor_type in sensors.items():
+            self.sensors[sensor] = {'sensor_type': sensor_type,
+                                    'value': initialize(sensor_type),
+                                    'fixed' : False,
+                                   }
 
     def add_sensor(self, sensor):
         id = sensor.uniq_id
