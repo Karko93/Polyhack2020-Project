@@ -35,7 +35,7 @@ def create_sensor(sensor_type):
     newid = counter_sensors
     counter_sensors += 1
     posx, posy = 30 + np.random.normal(scale=10), 10 + np.random.normal(10)
-    dic = {"serial" : newid, "type" : "sensor", "ancestor" : sensor_type,
+    dic = {"serial" : str(newid).zfill(5), "type" : "sensor", "ancestor" : sensor_type,
             "position" : {"x": posx, "y": posy}}
     return dic
 
@@ -45,7 +45,7 @@ def create_actuator(actuator_type):
     newid = counter_actuators + 10000
     counter_actuators += 1
     posx, posy = 30 + np.random.normal(scale=10), 10 + np.random.normal(10)
-    dic = {"serial" : newid, "type" : "Actuator", "ancestor" : actuator_type,
+    dic = {"serial" : str(newid).zfill(5), "type" : "Actuator", "ancestor" : actuator_type,
             "position" : {"x": posx, "y": posy}}
     return dic
 
