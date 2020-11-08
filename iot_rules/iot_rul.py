@@ -84,6 +84,34 @@ class FireEmergency(IOT_Rules):
                          requirement='all'
                          )
 
+class PlantWatering(IOT_Rules):
+    def __init__(self, uniq_id, sensor_id_list, actuator_id_list):
+        super().__init__(uniq_id=uniq_id,
+                         sensor_id_list=sensor_id_list,
+                         actuator_id_list=actuator_id_list,
+                         actuator_value_True=[1],
+                         sensor_reading=['humidity', 'brightness'],
+                         actuator_output=['sprinkler'],
+                         comparisons=['<', '<'],
+                         thresholds=[50, 50],
+                         requirement='all'
+                         )
+
+class EmergencyDoor(IOT_Rules):
+    def __init__(self, uniq_id, sensor_id_list, actuator_id_list, distance_threshold=5.0):
+        super().__init__(uniq_id=uniq_id,
+                         sensor_id_list=sensor_id_list,
+                         actuator_id_list=actuator_id_list,
+                         actuator_value_True=[1],
+                         actuator_value_False=[0],
+                         sensor_reading=['noise_detector', 'distance', 'brightness'],
+                         actuator_output=['door_locked'],
+                         comparisons=['>', '>', '<'],
+                         thresholds=[True, distance_threshold, 50],
+                         requirement='all'
+                         )
+
+
 
 if __name__ == '__main__':
     # dummy_rul = IOT_Rules(uniq_id='000000')
