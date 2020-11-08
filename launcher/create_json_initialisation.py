@@ -2,7 +2,7 @@ import json
 import numpy as np
 import random
 
-number_of_sensors = 100
+number_of_sensors = 60
 number_of_actuators = 30
 
 
