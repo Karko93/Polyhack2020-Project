@@ -15,7 +15,7 @@ class IOT_Device:
         s = json.dumps(message)
         host = self.hostname + address
         try:
-            return int(requests.post(host, json=s).content)
+            return requests.post(host, json=s).content
         except:
             return 1
 

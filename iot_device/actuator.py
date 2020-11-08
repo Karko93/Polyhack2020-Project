@@ -1,24 +1,18 @@
 from iot_device.iot_dev import IOT_Device
 from datetime import datetime
-
+import json
 
 class Actuator(IOT_Device):
-    jobs = {}
-
+    data = None
     def __init__(self, uniq_id):
         super().__init__(uniq_id)
         self.actuator_type = None
         self.status = None
-        self.init_at_host()
-
-    def init_at_host(self):
-        """Call the host for the first time and pass its object information."""
-        message = {'id': self.uniq_id, 'ancestors': self.ancestors, 'jobs': self.jobs}
-        retval = self._post('actuator_com', message)
 
     def send_to_server(self):
-        tsmp = datetime.timestamp(datetime.now())
-        self._data = {self.actuator_type: self.status, 'timestamp': tsmp}
+        message = {'id': self.uniq_id, 'ancestors': self.ancestors, 'data': self.data}
+        retval = self._post('actuator_com', message)
+        return retval
 
 
 
@@ -58,17 +52,17 @@ class MotorPosition(Actuator):
 class SmartLamp(Actuator):
     def __init__(self, uniq_id):
         super().__init__(uniq_id)
-        self.actuator_type = "smartlamp"
-        self.intensity = 0  # Intensity of the lamp
-        self.status = self.intensity
-        self.openJobs = {}
+        self.data = {'intensity': 0}
 
     # Check if there are open jobs and update the intensity according to the las value
     def update_status(self):
-        if self.openJobs:
-            self.intensity = self.openJobs['intensity']
-            self.status = self.intensity
-            self.openJobs = {}
+        retval = json.loads(self.send_to_server())
+        if not retval:
+            return
+        else:
+            for job in retval:
+                if job == 'switch':
+                    self.data['intensity'] = float(not self.data['intensity'])
 
 
 class Heating(Actuator):
@@ -101,4 +95,4 @@ class Sprinkler(Actuator):
 
 if __name__ == '__main__':
     dummy_dev = SmartLamp(uniq_id='100000')
-    print(dummy_dev.ancestors)
+    dummy_dev.update_status()
