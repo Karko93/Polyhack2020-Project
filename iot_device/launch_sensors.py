@@ -1,6 +1,6 @@
-from environment import Environment
-from sensor import *
-from actuator import *
+from iot_device.environment import Environment
+from iot_device.sensor import *
+from iot_device.actuator import *
 from threading import Thread
 from time import sleep
 

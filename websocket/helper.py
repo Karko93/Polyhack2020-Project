@@ -24,15 +24,18 @@ class BackgroundWorker(Thread):
         while True:
             rules = self.iot_server.rules
             for rule in rules:
+                # print(rule)
                 # Check if all Sensors are existing
                 ret_val = self.check_if_exist(rule.sensor_ids)
                 if ret_val == 1:
                     continue
                 else:
+                    # print('all sensors there')
                     # Check if all Actuators are existing
                     ret_val = self.check_if_exist(rule.actuator_ids)
                     if ret_val == 1:
                         continue
+                    # print('all actuators there')
 
                 # Collect Sensor data
                 rule.data = []
@@ -45,7 +48,6 @@ class BackgroundWorker(Thread):
                 elif rule.actuator_value_False is not None:
                     actuator_value = rule.actuator_value_False
                 else: continue
-
                 for actuator_id, output, value in zip(rule.actuator_ids,
                                                rule.actuator_output,
                                                actuator_value):

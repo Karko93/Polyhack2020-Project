@@ -56,7 +56,10 @@ class SmartLamp(Actuator):
 
     # Check if there are open jobs and update the intensity according to the las value
     def update_status(self):
-        retval = json.loads(self.send_to_server())
+        try:
+            retval = json.loads(self.send_to_server())
+        except:
+            return
         if not retval:
             return
         else:

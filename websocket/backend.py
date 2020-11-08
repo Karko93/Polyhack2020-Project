@@ -52,7 +52,7 @@ class IOT_Server:
             self.devices[message['id']] = dev
 
         dev.add_data(message['data'])
-        print(dev, dev.jobs)
+        # print(dev, dev.jobs)
         return dev.jobs
 
     def describe_all_sensors(self):
