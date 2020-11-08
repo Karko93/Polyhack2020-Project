@@ -90,9 +90,9 @@ def rules_generator():
                              actuator_id_list=[request.form['actuator_id']],
                              actuator_output=[request.form['actuator_action']],
                              comparisons=[request.form['condition']],
-                             thresholds=[request.form['threshold']],
-                             actuator_value_True=[request.form['true_value']],
-                             actuator_value_False=[request.form['false_value']] if request.form['false_value'] else None,
+                             thresholds=[float(request.form['threshold'])],
+                             actuator_value_True=[float(request.form['true_value'])],
+                             actuator_value_False=[float(request.form['false_value'])] if request.form['false_value'] else None,
                              requirement='all')
             iot_server.rules.append(rule)
 
