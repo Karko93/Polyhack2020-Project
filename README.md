@@ -1,9 +1,9 @@
 # Polyhack2020-Project - The Mean Squares
 ## Used Python libraries
 Use following command to install the required libraries:
-> pip install pandas
-> pip install numpy
-> pip install Flask
+> pip install pandas\
+> pip install numpy\
+> pip install Flask\
 ## Executing Code
 
 
