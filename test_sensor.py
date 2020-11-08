@@ -5,6 +5,11 @@ from time import sleep
 
 import json
 
+filename = 'Documents/initialisation.json'
+
+with open(filename) as initialisation_file:
+    list_of_sensors = json.load(initialisation_file)
+
 sensors = []
 new_sensors = []
 
@@ -13,7 +18,7 @@ sensor_parser = SensorInstantiator(env, sensors=sensors, new_sensors=new_sensors
 sensor_parser.start()
 
 counter = 0
-
+"""
 list_of_sensors = [{
   "serial": str(1).zfill(2),
   "type": "sensor",
@@ -78,7 +83,7 @@ list_of_sensors = [{
             "x": 37.410847,
             "y": 10.137878}
     }
-]
+]"""
 
 for new_element in list_of_sensors:
     sensor_parser.add_sensor(new_element)
