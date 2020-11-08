@@ -73,11 +73,13 @@ def rules_generator():
                                    conditions_list=conditions_list,
                                    actuators_list=actuators_list,
                                    )
-        required_inputs = ['sensor_id', 'condition', 'threshold', 'actuator_id', 'actuator_action']
+        required_inputs = ['sensor_id', 'sensor_reading', 'condition', 'threshold', 'actuator_id', 'actuator_action']
         request_ready = all(key in request.form for key in required_inputs)
         return render_template('rules_generator.html',
                                sensors_list=sensors_list,
                                selected_sensor=request.form['sensor_id'] if 'sensor_id' in request.form else None,
+                               sensor_readings=['Reading A', 'Reading B'] if 'sensor_id' in request.form else [],
+                               selected_reading=request.form['sensor_reading'] if 'sensor_reading' in request.form else None,
                                conditions_list=conditions_list,
                                selected_condition=request.form['condition'] if 'condition' in request.form else None,
                                threshold=request.form['threshold'] if 'threshold' in request.form else None,
