@@ -3,64 +3,16 @@ from datetime import datetime
 import json
 from time import sleep
 
-
-class ActuatorInstantiator():
-
-    def __init__(self, sensors=[], new_actuator=[]):
-        """
-        :param actuators: list of existing actuators
-        :param new_actuators: list of new actuator to be added
-        """
-        Thread.__init__(self)
-        self.daemon = True
-        self.env = env
-        self.actuator = sensors
-        self.new_actuator = new_actuator
-
-    def update(self):
-        for element in self.new_actuators:
-            if element['type'] == 'actuator':
-                uniq_id = element['serial']
-                position = element['position']
-                position_x, position_y = position[0], position[1]
-                if element['ancestor'] == 'doorlock':
-                    self.actuators.append(SmartDoorLock(uniq_id, position=position))
-                elif element['ancestor'] == 'motorposition':
-                    self.actuators.append(MotorPosition(uniq_id, position_x=position_x,
-                                                        position_y=position_y))
-                elif element['ancestor'] == 'sprinkler':
-                    self.actuators.append(Sprinkler(uniq_id, position=position))
-                elif element['ancestor'] == 'heating':
-                    self.actuators.append(Heating(uniq_id, position=position))
-                elif element['ancestor'] == 'smartlamp':
-                    self.actuators.append(SmartLamp(uniq_id, position=position))
-                else:
-                    pass
-            self.new_sensors.remove(element)
-        return self
-
-    def add_actuator(self, actuator):
-        """
-        :param actuator: dictionary of the same format of the initialisation file.
-        :return: self
-        """
-
-        self.new_actuators.append(actuator)
-        return self
-
-    def run(self):
-        while True:
-            self.update()
-            sleep(0.1)
-
 class Actuator(IOT_Device):
-    data = None
     def __init__(self, uniq_id):
         super().__init__(uniq_id)
         self.actuator_type = None
         self.status = None
+        self.data = None
 
     def send_to_server(self):
+        tsmp = datetime.timestamp(datetime.now())
+        self.data['timestamp'] = tsmp
         message = {'id': self.uniq_id, 'ancestors': self.ancestors, 'data': self.data}
         retval = self._post('actuator_com', message)
         return retval

@@ -1,5 +1,5 @@
-from sensor import PhysicalSensor
-from actuator import Actuator
+from iot_device.sensor import PhysicalSensor
+from iot_device.actuator import Actuator
 
 class Antenna(PhysicalSensor, Actuator):
     def __init__(self, uniq_id, env, position=None):
