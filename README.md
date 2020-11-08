@@ -6,29 +6,31 @@ Use following command to install the required libraries:
 > pip install -U Flask
 ---
 ## Executing Code
-1. Start the server with the script "server.py"
-2. Run the python script "run.py"
-1. Got to the URL in your browser: [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
+1. Start the server with the script "websocket/server.py"
+2. Initialize 1000 Sensors and 1000 Actuators and connect them to the server by executing the python script "launcher/run.py"
+  2a. The files "launcher/initialisation_actuator.json" and "launcher/initialisation_sensor.json" contain all existing devices
+  3a. Rules can be either added live from the webbrowser or by editing the config file "iot_rules/rules_config.json"
+3. Go to the URL in your browser: [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 ---
 ## Overview of the scripts
 
-### app.py
-
-### run.py
+### launcher/run.py
 This script launches the simulation. It first reads from an initialisation file containing the desired sensors and actuators. It instantiates each of them, connects them to the server, it simulates an environment for the generation of data and it updates all the devices every second.
 
-### server.py
-This script runs the server application. Once this is running, the simulation can be launched from run.py.
+### websocket/server.py
+This script runs the server application. Once this is running, the simulation can be launched from run.py. Besides the Webserver a thread runs in the background to check whether certain rules have to be applied and actuators need to be triggered.
 
-### client.py
+### websocket/backend.py
+The backend of the webserver which stores transferred data and manages the usage.
 
-### backend.py
+### iot_rules/iot_rul.py
+A file that manages the rules that are defined in "iot_rules/rules_config.json"
 
-### iot_rul.py
+### iot_rules/parser.py
+Helper file to parse "iot_rules/rules_config.json" for rules.
 
-### parser.py
-
-### iot_dev.py
+### iot_device/iot_dev.py
+File containing the base classes for sensors and actuators
 
 ### actuator.py
 This script contains every class around the different actuator types and handling.\
