@@ -1,5 +1,4 @@
 from iot_device.iot_dev import IOT_Device
-from datetime import datetime
 import json
 
 class Actuator(IOT_Device):
@@ -14,21 +13,44 @@ class Actuator(IOT_Device):
         retval = self._post('actuator_com', message)
         return retval
 
+    # Check if there are open jobs and update the intensity according to the last value
+    def update_status(self):
+        try:
+            retval = json.loads(self.send_to_server())
+        except:
+            return
+        if not retval:
+            return
+        else:
+            for job in retval:
+                self.data[job] = retval[job]
+
+
+class SmartLamp(Actuator):
+    def __init__(self, uniq_id):
+        super().__init__(uniq_id)
+        self.data = {'intensity': 0}
 
 
 class SmartDoorLock(Actuator):
     def __init__(self, uniq_id):
         super().__init__(uniq_id)
-        self.actuator_type = "doorlock"
-        self.isDoorOpen = True  # State if door is open
-        self.openJobs = {}
-        self.status = self.isDoorOpen
+        self.data = {'door_locked': False}
 
-    def update_status(self):
-        if self.openJobs:
-            self.isDoorOpen = self.openJobs['openDoor']
-            self.status = self.isDoorOpen
-            self.openJobs = {}
+
+# class SmartDoorLock(Actuator):
+#     def __init__(self, uniq_id):
+#         super().__init__(uniq_id)
+#         self.actuator_type = "doorlock"
+#         self.isDoorOpen = True  # State if door is open
+#         self.openJobs = {}
+#         self.status = self.isDoorOpen
+#
+#     def update_status(self):
+#         if self.openJobs:
+#             self.isDoorOpen = self.openJobs['openDoor']
+#             self.status = self.isDoorOpen
+#             self.openJobs = {}
 
 
 
@@ -47,25 +69,6 @@ class MotorPosition(Actuator):
             self.position_y = self.openJobs['position_y']
             self.status = [self.position_x, self.position_y]
             self.openJobs = {}
-
-
-class SmartLamp(Actuator):
-    def __init__(self, uniq_id):
-        super().__init__(uniq_id)
-        self.data = {'intensity': 0}
-
-    # Check if there are open jobs and update the intensity according to the las value
-    def update_status(self):
-        try:
-            retval = json.loads(self.send_to_server())
-        except:
-            return
-        if not retval:
-            return
-        else:
-            for job in retval:
-                if job == 'switch':
-                    self.data['intensity'] = retval[job]
 
 
 class Heating(Actuator):

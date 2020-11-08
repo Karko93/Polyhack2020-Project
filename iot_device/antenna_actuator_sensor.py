@@ -13,7 +13,7 @@ class Antenna(PhysicalSensor, Actuator):
         self.openJobs = {}
         self.status = self.isSending
         
-        ## properties of an sensor
+        ## properties of a sensor
         self.sensor_type = 'antenna'
         self.position = position
         

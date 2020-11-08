@@ -30,7 +30,7 @@ class SmartStreetLight(IOT_Rules):
         super().__init__(uniq_id, sensor_id_list, actuator_id_list,
                  actuator_value_True, actuator_value_False)
         self.sensor_reading = ['motion', 'noise_detector']
-        self.actuator_output = ['switch']
+        self.actuator_output = ['intensity']
 
         self.comparisons = ['=', '=']
         self.thresholds = [True, True]
