@@ -24,11 +24,13 @@ def initialize(sensor_type):
         
         
 def change_sensor_value(actuator_type,actuator_data,sensor_type,sensor_value):
-    if actuator_type == 'smartlamp':
+    if actuator_type == 'light':
         if sensor_type == 'brightness':
-            return sensor_value +actuator_data['intensity']*np.random.normal(scale=1)
-        else:
-            return sensor_value
+            return sensor_value +actuator_data['intensity']*30 
+    elif actuator_type =='light''
+    
+    
+    return sensor_value
         
         
 
