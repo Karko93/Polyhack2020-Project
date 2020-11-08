@@ -36,7 +36,7 @@ def change_sensor_value(actuator_type,actuator_data,sensor_type,sensor_value):
 
 class EnvironmentManager(Thread):
 
-    def __init__(self, env,actuators):
+    def __init__(self, env, actuators=[]):
         Thread.__init__(self)
         self.env = env
         self.daemon = True
