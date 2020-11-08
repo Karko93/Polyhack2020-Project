@@ -1,4 +1,6 @@
 import numpy as np
+from threading import Thread
+from time import sleep
 
 def initialize(sensor_type):
     if sensor_type == 'noise_detector' or sensor_type == 'motion':
@@ -19,6 +21,20 @@ def initialize(sensor_type):
         return [np.random.rand() for i in range(100)]
     else:
         raise ValueError('Sensor type {} unknown'.format(sensor_type))
+
+
+class EnvironmentManager(Thread):
+
+    def __init__(self, env):
+        Thread.__init__(self)
+        self.env = env
+        self.daemon = True
+
+    def run(self):
+        while True:
+            self.env.update_environment()
+            sleep(0.1)
+
 
 class Environment():
 
