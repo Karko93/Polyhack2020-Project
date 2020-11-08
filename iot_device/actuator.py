@@ -17,12 +17,13 @@ class Actuator(IOT_Device):
 
 
 class SmartDoorLock(Actuator):
-    def __init__(self, uniq_id):
+    def __init__(self, uniq_id,position=None):
         super().__init__(uniq_id)
         self.actuator_type = "doorlock"
         self.isDoorOpen = True  # State if door is open
         self.openJobs = {}
         self.status = self.isDoorOpen
+        self.position = position
 
     def update_status(self):
         if self.openJobs:
@@ -33,13 +34,14 @@ class SmartDoorLock(Actuator):
 
 
 class MotorPosition(Actuator):
-    def __init__(self, uniq_id, position_x = 0, position_y = 0):
+    def __init__(self, uniq_id, position_x = 0, position_y = 0,position=None):
         super().__init__(uniq_id)
         self.actuator_type = "motorposition"
         self.position_x = position_x # heating switched on
         self.position_y = position_y
         self.status = [self.position_x, self.position_y]
         self.openJobs = {}
+        self.position = position
 
     def update_status(self):
         if self.openJobs:
@@ -50,9 +52,10 @@ class MotorPosition(Actuator):
 
 
 class SmartLamp(Actuator):
-    def __init__(self, uniq_id):
+    def __init__(self, uniq_id,position=None):
         super().__init__(uniq_id)
         self.data = {'intensity': 0}
+        self.position = position
 
     # Check if there are open jobs and update the intensity according to the las value
     def update_status(self):
@@ -69,12 +72,13 @@ class SmartLamp(Actuator):
 
 
 class Heating(Actuator):
-    def __init__(self, uniq_id):
+    def __init__(self, uniq_id,position=None):
         super().__init__(uniq_id)
         self.actuator_type = "heating"
         self.heating_on = 0  # heating switched on
         self.status = self.heating_on
         self.openJobs = {}
+        self.position = position
 
     def update_status(self):
         if self.openJobs:
@@ -83,12 +87,13 @@ class Heating(Actuator):
             self.openJobs = {}
 
 class Sprinkler(Actuator):
-    def __init__(self, uniq_id):
+    def __init__(self, uniq_id,position=None):
         super().__init__(uniq_id)
         self.actuator_type = "sprinkler"
         self.water_running = 0  # sprinkler switched on
         self.status = self.water_running
         self.openJobs = {}
+        self.position = position
 
     def update_status(self):
         if self.openJobs:
