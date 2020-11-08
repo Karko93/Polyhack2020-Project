@@ -125,6 +125,23 @@ class SmartHeater(IOT_Rules):
                          requirement='all'
                          )
 
+class AdjustLight(IOT_Rules):
+    def __init__(self, uniq_id, sensor_id_list, actuator_id_list):
+        super().__init__(uniq_id=uniq_id,
+                         sensor_id_list=sensor_id_list,
+                         actuator_id_list=actuator_id_list,
+                         actuator_value_True=[1 for _ in actuator_id_list],
+                         sensor_reading=['brightness'],
+                         actuator_output=['intensity' for _ in actuator_id_list],
+                         comparisons=['='],
+                         thresholds=[True],
+                         requirement='all'
+                         )
+
+    def rule_decision(self):
+        self.actuator_value_True = [(100 - self.data[0])/100 for _ in self.actuator_output]
+        return True
+
 
 if __name__ == '__main__':
     # dummy_rul = IOT_Rules(uniq_id='000000')

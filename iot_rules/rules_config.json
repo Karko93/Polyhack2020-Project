@@ -11,9 +11,13 @@
   {"rule" :  "SmartFloodLight",
   "uniq_id" : "000003",
 "sensor_id_list" :  ["00042", "00040"],
-"actuator_id_list" :  ["10005", "10010", "10015", "10020"]},
+"actuator_id_list" :  ["10005", "10010", "10015"]},
   {"rule" :  "FireEmergency",
   "uniq_id" : "000004",
 "sensor_id_list" :  ["00036", "00058"],
-"actuator_id_list" :  ["10009"]}
+"actuator_id_list" :  ["10009"]},
+  {"rule" :  "AdjustLight",
+  "uniq_id" : "000005",
+"sensor_id_list" :  ["00110"],
+"actuator_id_list" :  ["10020", "10025"]}
 ]
