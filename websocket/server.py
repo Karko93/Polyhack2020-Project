@@ -79,7 +79,11 @@ def rules_generator():
     if request.method == 'POST':
         if 'Submit Rule' in request.form:
             # Submit Rule
-            uniq_id = 233893
+            ids = [int(rule.uniq_id) for rule in iot_server.rules]
+            new_id = 0
+            while new_id in ids:
+                new_id += 1
+            uniq_id = str(new_id).zfill(6)
             rule = IOT_Rules(uniq_id,
                              sensor_id_list=[request.form['sensor_id']],
                              sensor_reading=[request.form['sensor_reading']],
