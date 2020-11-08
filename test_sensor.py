@@ -2,7 +2,7 @@ from iot_device.environment import Environment
 from iot_device.sensor import *
 from threading import Thread
 from time import sleep
-from antenna_actuator_sensor import Antenna
+from iot_device.antenna_actuator_sensor import Antenna
 
 import json
 
