@@ -3,8 +3,8 @@
 Use following command to install the required libraries:
 > pip install pandas\
 > pip install numpy\
-> pip install -U Flask
-> pip install folium
+> pip install -U Flask  
+> pip install folium  
 > pip install matplotlib
 ---
 ## Executing Code
