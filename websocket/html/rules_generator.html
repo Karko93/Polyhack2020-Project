@@ -6,6 +6,7 @@
     </head>
     <body>
         <form method="POST" action="">
+            <p>
             <select name="sensor_id" required onchange="this.form.submit()">
                 <option value="" selected disabled hidden>Choose sensor</option>
                 {% for sensor_id, sensor_name in sensors_list.items() %}
@@ -50,11 +51,14 @@
                 {% endfor %}
                 
             </select>
+            <label for="threshold"><small>threshold:</small></label>
             {% if threshold %}
-            <input name="threshold" type="number" value={{threshold}} step="0.001" onchange="this.form.submit()">
+            <input name="threshold" type="number" value={{threshold}} step="0.001" onchange="this.form.submit()" style="width: 5em;">
             {% else %}
-            <input name="threshold" type="number" value="" step="0.001" onchange="this.form.submit()">
+            <input name="threshold" type="number" value="" step="0.001" onchange="this.form.submit()" style="width: 5em;">
             {% endif %}
+            </p>
+            <p>
             <select name="actuator_id" required onchange="this.form.submit()">
                 <option value="" selected disabled hidden>Choose actuator</option>
                 {% for actuator_id, actuator_name in actuators_list.items() %}
@@ -84,13 +88,25 @@
                 
                 {% endfor %}
             </select>
+            <label for="true_value"><small>Actuator value: if true:</small></label>
+            {% if true_value %}
+            <input name="true_value" type="number" value={{true_value}} step="0.001" onchange="this.form.submit()" style="width: 5em;">
+            {% else %}
+            <input name="true_value" type="number" value="" step="0.001" onchange="this.form.submit()" style="width: 5em;">
+            {% endif %}
+            <label for="true_value"><small>if false:</small></label>
+            {% if false_value %}
+            <input name="false_value" type="number" value={{false_value}} step="0.001" onchange="this.form.submit()" style="width: 5em;">
+            {% else %}
+            <input name="false_value" type="number" value="" step="0.001" onchange="this.form.submit()" style="width: 5em;">
+            {% endif %}
                 
                 {%if request_ready %}
                 <input type="submit" name="Submit Rule">
                 {% else %}
                 <input type="submit" name="Submit Rule" disabled="disabled">
                 {% endif %}
-                
+            </p>
         </form>
         
         
