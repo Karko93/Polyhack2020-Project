@@ -1,16 +1,26 @@
 import numpy as np
 
+def initialize_noise_detector():
+    return np.random.rand() > 0.5
+
 def initialize_temperature():
     return 25.0 + np.random.normal(scale=10)
 
 def initialize_humidity():
     return 50.0 + np.random.normal(scale=10)
 
+def initialize_brightness():
+    return 50.0 + np.random.normal(scale=10)
+
+def initialize_proximity():
+    return np.random.rand() > 0.5
+
+def initialize_airquality():
+    return np.random.rand()
+
 def initialize_motion_sensor():
     return np.random.rand() > 0.5
 
-def initialize_noise_detector():
-    return np.random.rand() > 0.5
 
 def initialize(sensor_type):
     if sensor_type == 'noise_detector' or sensor_type == 'motion_sensor':
@@ -22,6 +32,10 @@ def initialize(sensor_type):
     elif sensor_type == 'brightness':
         return 50.0 + np.random.normal(scale=10)
     elif sensor_type == 'proximity_sensor':
+        return np.random.rand() > 0.5
+    elif sensor_type == 'airquality_sensor':
+        return np.random.rand()
+    elif sensor_type == 'motion_sensor':
         return np.random.rand() > 0.5
 
 
@@ -48,10 +62,22 @@ class Environment():
                     self.sensors[sensor] = {'sensor_type' : 'motion_sensor',
                                             'value' : initialize_motion_sensor(),
                                             'fixed' : False}
-                elif sensor_type in 'smart_noise_detector':
+                elif sensor_type in 'noise_detector':
                     self.sensors[sensor] = {'sensor_type' : 'noise_detector',
                                             'value': initialize_noise_detector(),
                                             'fixed' : False}
+                elif sensor_type in 'brightness_sensor':
+                    self.sensors[sensor] = {'sensor_type' : 'brightness_sensor',
+                                            'value': initialize_brightness(),
+                                            'fixed' : False}
+                elif sensor_type in 'proximity_proximity':
+                    self.sensors[sensor] = {'sensor_type': 'proximity_sensor',
+                                            'value': initialize_proximity(),
+                                            'fixed': False}
+                elif sensor_type in 'airquality_sensor':
+                    self.sensors[sensor] = {'sensor_type': 'airquality_sensor',
+                                            'value': initialize_airquality(),
+                                            'fixed': False}
                 else:
                     raise Exception('Sensor type unknown.')
 
