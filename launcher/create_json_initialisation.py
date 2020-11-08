@@ -2,8 +2,8 @@ import json
 import numpy as np
 import random
 
-number_of_sensors = 1000
-number_of_actuators = 1000
+number_of_sensors = 100
+number_of_actuators = 30
 
 
 filename_sensors = 'initialisation_sensor.json'
@@ -34,7 +34,7 @@ def create_sensor(sensor_type):
     global counter_sensors
     newid = counter_sensors
     counter_sensors += 1
-    posx, posy = 47.36667 + np.random.normal(scale=1), 8.55 + np.random.normal(1)
+    posx, posy = 47.40667 + np.random.normal(scale=1e-2), 8.55 + np.random.normal(scale=1e-2)
     dic = {"serial" : str(newid).zfill(5), "type" : "sensor", "ancestor" : sensor_type,
             "position" : {"x": posx, "y": posy}}
     return dic
@@ -44,7 +44,7 @@ def create_actuator(actuator_type):
     global counter_actuators
     newid = counter_actuators + 10000
     counter_actuators += 1
-    posx, posy = 47.36667 + np.random.normal(scale=1), 8.55 + np.random.normal(1)
+    posx, posy = 47.40667 + np.random.normal(scale=1e-2), 8.55 + np.random.normal(scale=1e-2)
     dic = {"serial" : str(newid).zfill(5), "type" : "Actuator", "ancestor" : actuator_type,
             "position" : {"x": posx, "y": posy}}
     return dic
