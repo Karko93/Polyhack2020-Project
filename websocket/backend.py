@@ -144,7 +144,16 @@ class NoiseSensor(Sensor):
 class BrightnessSensor(Sensor):
     pass
 
+
 class ProximitySensor(Sensor):
+    pass
+
+
+class DistanceSensor(Sensor):
+    pass
+
+
+class AirQualitySensor(Sensor):
     pass
 
 
