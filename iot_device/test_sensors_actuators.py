@@ -10,14 +10,16 @@ from time import sleep
 
 class EnvironmentManager(Thread):
 
-    def __init__(self, env):
+    def __init__(self, env, actuators):
         Thread.__init__(self)
         self.env = env
         self.daemon = True
+        self.actuators = actuators
 
     def run(self):
         while True:
             self.env.update_environment()
+            self.env.change_val(self.actuators)
             sleep(0.1)
 
 # class IOTDeviceThread(Thread):
@@ -48,17 +50,16 @@ if __name__=='__main__':
         counter += 1
 
     for id in range(10):
-        sensors.append(BrightnessSensor(str(counter).zfill(6), env))
+        sensors.append(BrightnessSensor(str(counter).zfill(6), env, position=1))
         counter += 1
 
-    clock = EnvironmentManager(env)
-    clock.start()
+   
 
     actuators = []
 
 
     for id in range(2):
-        actuators.append(SmartLamp(str(counter).zfill(6),))
+        actuators.append(SmartLamp(str(counter).zfill(6),position=1))
         counter += 1
 
     while True:
@@ -71,3 +72,6 @@ if __name__=='__main__':
             actuator.openJobs = actuator.send_to_server()
             actuator.update_status()
         sleep(1)
+        
+    clock = EnvironmentManager(env)
+    clock.start()
