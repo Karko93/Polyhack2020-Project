@@ -5,6 +5,10 @@ from websocket.backend import IOT_Server
 from websocket.helper import html_table, BackgroundWorker
 import threading
 
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
+
 app = Flask(__name__, template_folder='html')
 
 iot_server = IOT_Server()
@@ -38,7 +42,6 @@ def show_device(unq_id):
 def sensor_com():
     jsondata = request.get_json()
     message = json.loads(jsondata)
-    print(message)
     iot_server.process_sensor(message)
     return '0'
 
@@ -46,7 +49,6 @@ def sensor_com():
 def actuator_com():
     jsondata = request.get_json()
     message = json.loads(jsondata)
-    print(message)
     return json.dumps(iot_server.process_actuator(message))
 
 @app.route('/send_json', methods=['GET'])
@@ -61,7 +63,7 @@ def rules_generator():
 
     # sensors_list and actuators_list should be read from iot_server
     sensors_list = {'000001':'Temperature', '000002':'Humidity'}
-    conditions_list = ['>','<', '=']
+    conditions_list = ['>', '<', '=', '!=']
     actuators_list = {'000001':'Heater', '000002':'DoorLock'}
 
     # stuff happens here that involves data to obtain a result
