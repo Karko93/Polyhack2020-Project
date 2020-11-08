@@ -137,6 +137,7 @@ class IOT_Device():
         self.kind = None
 
     def add_data(self, data):
+        print(data)
         if not isinstance(data['timestamp'], str):
             data['timestamp'] = dt.utcfromtimestamp(data['timestamp'])
         # data['timestamp'] = data['timestamp']
