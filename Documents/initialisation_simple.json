@@ -1,8 +1,0 @@
-{
-  "serial": 1,
-  "type": "sensor",
-  "ancestor": "brightness",
-  "position":{
-    "x": 47.410847,
-    "y":  8.537878}
-}

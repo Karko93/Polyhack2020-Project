@@ -1,0 +1,40 @@
+[{
+  "serial": "100",
+  "type": "Actuator",
+  "ancestor": "SmartLamp",
+  "position":{
+    "x": 47.410847,
+    "y":  8.537878}
+},
+{
+  "serial": "200",
+  "type": "Actuator",
+  "ancestor": "SmartDoorLock",
+  "position":{
+    "x": 47.410847,
+    "y":  8.537878}
+},
+{
+  "serial": "300",
+  "type": "Actuator",
+  "ancestor": "MotorPosition",
+  "position":{
+    "x": 47.410847,
+    "y":  8.537878}
+},
+{
+  "serial": "400",
+  "type": "Actuator",
+  "ancestor": "Heating",
+  "position":{
+    "x": 47.410847,
+    "y":  8.537878}
+},
+{
+  "serial": "500",
+  "type": "Actuator",
+  "ancestor": "Sprinkler",
+  "position":{
+    "x": 47.410847,
+    "y":  8.537878}
+}]

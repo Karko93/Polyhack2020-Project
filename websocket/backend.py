@@ -135,7 +135,7 @@ class IOT_Device():
         self.uniq_id = uniq_id
 
     def add_data(self, data):
-        data['timestamp'] = dt.utcfromtimestamp(data['timestamp'])
+        # data['timestamp'] = dt.utcfromtimestamp(data['timestamp'])
         if self.data is None:
             self.data = pd.DataFrame(data, index=[0])
         else:

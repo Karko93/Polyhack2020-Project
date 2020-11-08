@@ -1,15 +1,20 @@
 from iot_device.environment import Environment, EnvironmentManager
 from iot_device.sensor import *
+import iot_device.actuator
 from time import sleep
 #from antenna_actuator_sensor import Antenna
 
 import json
 
-filename = 'Documents/initialisation.json'
+filename_sensors = 'Documents/initialisation_sensor.json'
+filename_actuators = 'Documents/initialisation_actuator.json'
 
-with open(filename) as initialisation_file:
+with open(filename_sensors) as initialisation_file:
     list_of_sensors = json.load(initialisation_file)
+with open(filename_actuators) as initialisation_file:
+    list_of_actuators = json.load(initialisation_file)
 
+actuators = [getattr(iot_device.actuator, act['ancestor'])(act['serial'], act['position']) for act in list_of_actuators]
 sensors = []
 new_sensors = []
 
@@ -34,5 +39,7 @@ while True:
         data = sensor.data
         print(sensor.uniq_id, data)
         sensor.send_to_server(data)
+    for actuator in actuators:
+        actuator.update_status()
     sleep(1)
 
