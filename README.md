@@ -34,5 +34,5 @@ All the different special sensor types (e.g. temperature sensor) are defined her
 ### environment.py
 It defines how the sensor get new data (stochastic model) and also the influence of the actuators to the sensor data depending on sensor type.
 ### antenna_actuator_sensor.py
-
+This is an example how to implement a device which is both, an actuator and sensor (not supported in the web service yet).
 ### test_sensor.py
