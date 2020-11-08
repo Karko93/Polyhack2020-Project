@@ -2,6 +2,7 @@ from iot_device.environment import Environment
 from iot_device.sensor import *
 from threading import Thread
 from time import sleep
+from antenna_actuator_sensor import Antenna
 
 import json
 
@@ -41,6 +42,10 @@ for id in range(5):
 
 for id in range(10):
     sensors.append(BrightnessSensor(str(counter).zfill(6), env))
+    counter += 1
+    
+for id in range(1):
+    sensors.append(Antenna(str(counter).zfill(6), env))
     counter += 1
 
 clock = EnvironmentManager(env)

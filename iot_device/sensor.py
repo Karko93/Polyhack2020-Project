@@ -91,6 +91,8 @@ class AirQualitySensor(PhysicalSensor):
         self.sensor_type = 'airquality_sensor'
         self.position = position
         super().__init__(uniq_id, env)
+        
+
 
 
 if __name__ == '__main__':

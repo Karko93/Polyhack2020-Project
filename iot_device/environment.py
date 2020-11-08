@@ -25,6 +25,8 @@ def initialize(sensor_type):
         return np.random.rand() > 0.5
     elif sensor_type == 'airquality_sensor':
         return np.random.rand()
+    elif sensor_type == 'antenna':
+        return [np.random.rand() for i in range(100)]
 
 
 class Environment():
@@ -53,6 +55,10 @@ class Environment():
                 elif sensor_type in 'smart_noise_detector':
                     self.sensors[sensor] = {'sensor_type' : 'noise_detector',
                                             'value': initialize_noise_detector(),
+                                            'fixed' : False}
+                elif sensor_type in 'antenna':
+                    self.sensors[sensor] = {'sensor_type' : 'antenna',
+                                            'value' : initialize('antenna'),
                                             'fixed' : False}
                 else:
                     raise Exception('Sensor type unknown.')
