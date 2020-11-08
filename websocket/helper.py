@@ -43,6 +43,7 @@ class BackgroundWorker(Thread):
                     rule.data.append(self.iot_server.devices[sensor_id].data[reading].iloc[-1])
 
                 # Send jobs based on decision
+                # print(rule.rule_decision())
                 if rule.rule_decision():
                     actuator_value = rule.actuator_value_True
                 elif rule.actuator_value_False is not None:

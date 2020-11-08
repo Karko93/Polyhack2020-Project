@@ -11,7 +11,6 @@ class RuleBook:
             self.all_rules = []
             for d in data:
                 params = d.copy()
-                print(params)
                 params.pop('rule')
                 self.all_rules.append(getattr(rules, d['rule'])(**params))
 
