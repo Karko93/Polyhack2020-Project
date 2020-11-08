@@ -1,7 +1,9 @@
 # Polyhack2020-Project - The Mean Squares
 ## Used Python libraries
 Use following command to install the required libraries:
-> Blockquotes are very handy in email to emulate reply text.
+> pip install pandas
+> pip install numpy
+> pip install Flask
 ## Executing Code
 
 
