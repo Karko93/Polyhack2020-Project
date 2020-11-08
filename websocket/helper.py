@@ -13,6 +13,7 @@ def plot_data(plot_data_dict, html):
             ax.plot(x, _y, marker='o', label=key)
     fig.legend(loc='best')
     tmpfile = BytesIO()
+    ax.set_xlabel('timestamps')
     fig.savefig(tmpfile, format='png')
     encoded = base64.b64encode(tmpfile.getvalue()).decode('utf-8')
 
