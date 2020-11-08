@@ -5,11 +5,16 @@ from websocket.backend import IOT_Server
 from websocket.helper import html_table, BackgroundWorker
 import threading
 
+# suppress output to console
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
+
 app = Flask(__name__, template_folder='html')
 
 iot_server = IOT_Server()
-# background_worker = BackgroundWorker(iot_server)
-# background_worker.start()
+background_worker = BackgroundWorker(iot_server)
+background_worker.start()
 
 @app.route('/')
 def default():
@@ -32,13 +37,17 @@ def actuators():
 
 @app.route('/sensors/<unq_id>')
 def show_device(unq_id):
-    return iot_server.get_device(unq_id)
+    return iot_server.get_sensor(unq_id)
+
+# @app.route('/actuators/<unq_id>')
+# def show_device(unq_id):
+#     return iot_server.get_actuator(unq_id)
+
 
 @app.route('/sensor_com', methods=['POST'])
 def sensor_com():
     jsondata = request.get_json()
     message = json.loads(jsondata)
-    print(message)
     iot_server.process_sensor(message)
     return '0'
 
@@ -46,7 +55,6 @@ def sensor_com():
 def actuator_com():
     jsondata = request.get_json()
     message = json.loads(jsondata)
-    print(message)
     return json.dumps(iot_server.process_actuator(message))
 
 @app.route('/send_json', methods=['GET'])
@@ -61,7 +69,7 @@ def rules_generator():
 
     # sensors_list and actuators_list should be read from iot_server
     sensors_list = {'000001':'Temperature', '000002':'Humidity'}
-    conditions_list = ['>','<', '=']
+    conditions_list = ['>', '<', '=', '!=']
     actuators_list = {'000001':'Heater', '000002':'DoorLock'}
 
     # stuff happens here that involves data to obtain a result
@@ -73,11 +81,13 @@ def rules_generator():
                                    conditions_list=conditions_list,
                                    actuators_list=actuators_list,
                                    )
-        required_inputs = ['sensor_id', 'condition', 'threshold', 'actuator_id', 'actuator_action']
+        required_inputs = ['sensor_id', 'sensor_reading', 'condition', 'threshold', 'actuator_id', 'actuator_action']
         request_ready = all(key in request.form for key in required_inputs)
         return render_template('rules_generator.html',
                                sensors_list=sensors_list,
                                selected_sensor=request.form['sensor_id'] if 'sensor_id' in request.form else None,
+                               sensor_readings=['Reading A', 'Reading B'] if 'sensor_id' in request.form else [],
+                               selected_reading=request.form['sensor_reading'] if 'sensor_reading' in request.form else None,
                                conditions_list=conditions_list,
                                selected_condition=request.form['condition'] if 'condition' in request.form else None,
                                threshold=request.form['threshold'] if 'threshold' in request.form else None,

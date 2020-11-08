@@ -1,0 +1,4 @@
+[{"rule" :  "SmartStreetLight",
+  "id" : "000000",
+"sensors" :  ["000015","000010"],
+"actuators" :  ["100000"]}]

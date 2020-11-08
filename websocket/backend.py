@@ -1,21 +1,27 @@
 import pandas as pd
 from threading import RLock
 from datetime import datetime as dt
+from iot_rules.parser import RuleBook
 
 class IOT_Server:
     _devices = None
-    rules = None
+    _rules = None
 
     def __init__(self):
         # replace this with something that reads a json file listing the devices
         self._devices = {}  # key:value pairs of the form id:device
-        self.rules = []
+        self._rules = RuleBook().all_rules
         self.lock = RLock()
 
     @property
     def devices(self):
         with self.lock:
             return self._devices
+
+    @property
+    def rules(self):
+        with self.lock:
+            return self._rules
 
     def process_sensor(self, message):
         '''
@@ -58,25 +64,40 @@ class IOT_Server:
                 if self.devices[dev].kind=='Sensor':
                     ids.append(dev)
                     types.append(type(self.devices[dev]).__name__)
-                    latest_timestamps.append(dt.utcfromtimestamp(self.devices[dev].data['timestamp']))
+                    latest_timestamps.append(dt.utcfromtimestamp(self.devices[dev].data['timestamp'].iloc[-1]))
             device_table = {'ID': ids, 'Type': types, 'Timestamps' : latest_timestamps}
             return device_table
 
     def describe_all_actuators(self):
         with self.lock:
-            ids = [dev for dev in self.devices if self.devices[dev].kind=='Actuator']
-            types = [type(self.devices[dev]).__name__ for dev in self.devices if self.devices[dev].kind=='Actuator']
-            device_table = {'ID': ids, 'Type': types}
+            ids = []
+            types = []
+            jobs = []
+            for dev in self.devices:
+                if self.devices[dev].kind=='Actuator':
+                    ids.append(dev)
+                    types.append(type(self.devices[dev]).__name__)
+                    jobs.append(self.devices[dev].jobs)
+
+            device_table = {'ID': ids, 'Type': types, 'jobs': jobs}
             return device_table
 
 
-    def get_device(self, unq_id):
+    def get_sensor(self, unq_id):
         if unq_id in self.devices:
             dev = self.devices[unq_id]
             if dev.data is not None:
                 return dev.data.to_html()
         else:
             return 'device NOT found'
+
+    # def get_actuator(self, unq_id):
+    #     if unq_id in self.devices:
+    #         dev = self.devices[unq_id]
+    #         if dev.data is not None:
+    #             return dev.data.to_html()
+    #     else:
+    #         return 'device NOT found'
 
 
 class IOT_Device():
@@ -133,6 +154,8 @@ class Actuator(IOT_Device):
         super().__init__(id)
         self.jobs = {}
 
+class SmartLamp(Actuator):
+    pass
 
 if __name__ == '__main__':
     environmental_sensor = Sensor('temp_sensor_1', ['temperature', 'humidity'])

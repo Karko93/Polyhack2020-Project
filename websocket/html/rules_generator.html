@@ -21,6 +21,20 @@
                 {% endfor %}
                 
             </select>
+            <select name="sensor_reading" required onchange="this.form.submit()">
+                <option value="" selected disabled hidden>Choose reading</option>
+                {% for sensor_reading in sensor_readings %}
+                
+                {%if selected_reading == sensor_reading%}
+                <option value="{{sensor_reading}}" selected="selected">
+                {% else %}
+                <option value="{{sensor_reading}}">
+                {% endif %}
+                {{sensor_reading}}
+                </option>
+                
+                {% endfor %}
+            </select>
             <select name="condition" required onchange="this.form.submit()">
                 <option value="" selected disabled hidden>Choose condition</option>
                 {% for cond in conditions_list %}
@@ -37,9 +51,9 @@
                 
             </select>
             {% if threshold %}
-            <input name="threshold" type="number" value={{threshold}} step="0.01" onchange="this.form.submit()">
+            <input name="threshold" type="number" value={{threshold}} step="0.001" onchange="this.form.submit()">
             {% else %}
-            <input name="threshold" type="number" value="" step="0.01" onchange="this.form.submit()">
+            <input name="threshold" type="number" value="" step="0.001" onchange="this.form.submit()">
             {% endif %}
             <select name="actuator_id" required onchange="this.form.submit()">
                 <option value="" selected disabled hidden>Choose actuator</option>
@@ -69,6 +83,7 @@
                 </option>
                 
                 {% endfor %}
+            </select>
                 
                 {%if request_ready %}
                 <input type="submit" name="Submit Rule">
@@ -76,7 +91,6 @@
                 <input type="submit" name="Submit Rule" disabled="disabled">
                 {% endif %}
                 
-            </select>
         </form>
         
         

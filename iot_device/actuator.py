@@ -100,5 +100,5 @@ class Sprinkler(Actuator):
             self.openJobs = {}
 
 if __name__ == '__main__':
-    dummy_dev = Actuator(uniq_id='000100')
+    dummy_dev = SmartLamp(uniq_id='100000')
     print(dummy_dev.ancestors)
