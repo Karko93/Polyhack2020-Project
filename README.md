@@ -6,7 +6,7 @@ Use following command to install the required libraries:
 > pip install -U Flask
 ---
 ## Executing Code
-
+1. Run the python script "server.py"
 ---
 ## Overview of the scripts
 
@@ -27,7 +27,8 @@ Use following command to install the required libraries:
 ### iot_dev.py
 
 ### actuator.py
-
+This script contains every class around the different actuator types and handling.\
+All the different special actuator types (e.g. SmartLamp) are defined here which inheritage from the parent class Actuator (IOT_Device).
 ### sensor.py
 This script contains every class around the different sensor types and handling.\
 All the different special sensor types (e.g. temperature sensor) are defined here which inheritage from the parent class Sensor (IOT_Device).
