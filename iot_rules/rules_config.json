@@ -1,8 +1,13 @@
 [{"rule" :  "SmartStreetLight",
-  "id" : "000000",
-"sensors" :  ["000015","000010"],
-"actuators" :  ["000030"],
-"sensor_value": ["True", "True"],
+  "uniq_id" : "000000",
+"sensor_id_list" :  ["000015","000010"],
+"actuator_id_list" :  ["000030"],
+"actuator_value_True": ["1"],
+"actuator_value_False": ["0"]},
+{"rule" :  "SmartCatDoor",
+  "uniq_id" : "000001",
+"sensor_id_list" :  ["000015","000010"],
+"actuator_id_list" :  ["000030"],
 "actuator_value_True": ["1"],
 "actuator_value_False": ["0"],
-"actuator_output": ["switch"]}]
+"distance_threshold": ["0.5"]}]

@@ -38,8 +38,10 @@ class SmartStreetLight(IOT_Rules):
 
 
 class SmartCatDoor(IOT_Rules):
-    def __init__(self, uniq_id, sensor_id_list, actuator_id_list, distance_threshold=0.5):
-        super().__init__(uniq_id, sensor_id_list, actuator_id_list)
+    def __init__(self, uniq_id, sensor_id_list, actuator_id_list,
+                 actuator_value_True, actuator_value_False=None, distance_threshold=0.5):
+        super().__init__(uniq_id, sensor_id_list, actuator_id_list,
+                         actuator_value_True, actuator_value_False)
         self.sensor_reading = ['distance']
         self.actuator_output = ['switch']
 
