@@ -7,9 +7,9 @@ Use following command to install the required libraries:
 ---
 ## Executing Code
 1. Start the server with the script "websocket/server.py"
-2. Initialize 1000 Sensors and 1000 Actuators and connect them to the server by executing the python script "launcher/run.py"
-  2a. The files "launcher/initialisation_actuator.json" and "launcher/initialisation_sensor.json" contain all existing devices
-  3a. Rules can be either added live from the webbrowser or by editing the config file "iot_rules/rules_config.json"
+2. Initialize 1000 Sensors and 1000 Actuators and connect them to the server by executing the python script "launcher/run.py"  
+  2a. The files "launcher/initialisation_actuator.json" and "launcher/initialisation_sensor.json" contain all existing devices  
+  3a. Rules can be either added live from the webbrowser or by editing the config file "iot_rules/rules_config.json"  
 3. Go to the URL in your browser: [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 ---
 ## Overview of the scripts
