@@ -1,7 +1,19 @@
 [{"rule" :  "SmartStreetLight",
   "uniq_id" : "000001",
-"sensor_id_list" :  ["006","004"],
-"actuator_id_list" :  ["100"],
+"sensor_id_list" :  ["00006","00022"],
+"actuator_id_list" :  ["10000"],
 "actuator_value_True": [1],
-"actuator_value_False": [0]}
+"actuator_value_False": [0]},
+  {"rule" :  "SmartCatDoor",
+  "uniq_id" : "000002",
+"sensor_id_list" :  ["00008"],
+"actuator_id_list" :  ["10001"]},
+  {"rule" :  "SmartFloodLight",
+  "uniq_id" : "000003",
+"sensor_id_list" :  ["00042", "00040"],
+"actuator_id_list" :  ["10005", "10010", "10015", "10020"]},
+  {"rule" :  "FireEmergency",
+  "uniq_id" : "000004",
+"sensor_id_list" :  ["00036", "00058"],
+"actuator_id_list" :  ["10009"]}
 ]

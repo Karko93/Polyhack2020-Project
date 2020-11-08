@@ -42,6 +42,8 @@ class SmartStreetLight(IOT_Rules):
                          )
 
 
+
+
 class SmartCatDoor(IOT_Rules):
     def __init__(self, uniq_id, sensor_id_list, actuator_id_list, distance_threshold=0.5):
         super().__init__(uniq_id=uniq_id,

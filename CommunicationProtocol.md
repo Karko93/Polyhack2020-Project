@@ -8,27 +8,11 @@ All clients communication must contain the following fields:
 - `'id'`: a unique identifier for the device
 - `'ancestors'`: a list of inheritance of the device in question, in order from
 youngest to oldest (e.g. `['TemperatureSensor', 'Sensor', 'IOT_Device']`)
+- `'data'`: a dictionary of data to store on the server
 
-Clients are either `Sensor` or `Actuator`. A `Sensor` instance will additionally
-have a `data` entry, which contains a dictionary of measured values.
-An actuator instance will have a `state` entry, containing a dictionary describing
-the state of the device.
-
-Here's an example of a message sent from a `Sensor` object:  
-```
-{'id': 'device_id_1234',  
-'ancestors': ['TemperatureSensor', 'Sensor', 'IOT_Device'],
-'data': {'Temperature': 24.0},
-}
-```
-
-Here's an example of a message sent from a `Actuator` object:  
-```
-{'id': 'device_id_1234',  
-'ancestors': ['DoorActuator', 'Actuator', 'IOT_Device'],
-'data': {'DoorLocked': False, 'DoorPosition': 12.0},
-}
-```
+Clients are either `Sensor` or `Actuator`. The main difference between the two, is
+that a `Sensor` object will not get any response from the server, while an `Actuator`
+ object will
 
 
 ### Server side communication
