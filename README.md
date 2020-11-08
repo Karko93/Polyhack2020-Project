@@ -1,4 +1,4 @@
-# Polyhack2020-Project
+# Polyhack2020-Project - The Mean Squares
 ## Used Python libraries
 
 ## Executing Code
