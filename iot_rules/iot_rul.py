@@ -89,9 +89,9 @@ class PlantWatering(IOT_Rules):
         super().__init__(uniq_id=uniq_id,
                          sensor_id_list=sensor_id_list,
                          actuator_id_list=actuator_id_list,
-                         actuator_value_True=[1],
+                         actuator_value_True=[1 for _ in actuator_id_list],
                          sensor_reading=['humidity', 'brightness'],
-                         actuator_output=['sprinkler'],
+                         actuator_output=['sprinkler'  for _ in actuator_id_list],
                          comparisons=['<', '<'],
                          thresholds=[50, 50],
                          requirement='all'
@@ -111,6 +111,19 @@ class EmergencyDoor(IOT_Rules):
                          requirement='all'
                          )
 
+class SmartHeater(IOT_Rules):
+    def __init__(self, uniq_id, sensor_id_list, actuator_id_list, temperature_threshold=21.0):
+        super().__init__(uniq_id=uniq_id,
+                         sensor_id_list=sensor_id_list,
+                         actuator_id_list=actuator_id_list,
+                         actuator_value_True=[1],
+                         actuator_value_False=[0],
+                         sensor_reading=['temperature', 'motion'],
+                         actuator_output=['heating'],
+                         comparisons=['<', '='],
+                         thresholds=[temperature_threshold,  True],
+                         requirement='all'
+                         )
 
 
 if __name__ == '__main__':
