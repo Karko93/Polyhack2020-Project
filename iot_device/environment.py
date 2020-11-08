@@ -8,9 +8,9 @@ def initialize(sensor_type):
     elif sensor_type == 'temperature':
         return 25.0 + np.random.normal(scale=2)
     elif sensor_type == 'humidity':
-        return 50.0 + np.random.normal(scale=2)
-    elif sensor_type == 'brightness':
         return 50.0 + np.random.normal(scale=20)
+    elif sensor_type == 'brightness':
+        return 50.0 + np.random.normal(scale=10)
     elif sensor_type == 'proximity':
         return np.random.rand() > 0.5
     elif sensor_type == 'distance':
@@ -22,13 +22,11 @@ def initialize(sensor_type):
     else:
         raise ValueError('Sensor type {} unknown'.format(sensor_type))
         
-        
+### influence of actuators on sensor in same position 
 def change_sensor_value(actuator_type,actuator_data,sensor_type,sensor_value):
     if actuator_type == 'light':
         if sensor_type == 'brightness':
             return sensor_value +actuator_data['intensity']*30 
-    elif actuator_type =='light''
-    
     
     return sensor_value
         
@@ -38,14 +36,16 @@ def change_sensor_value(actuator_type,actuator_data,sensor_type,sensor_value):
 
 class EnvironmentManager(Thread):
 
-    def __init__(self, env):
+    def __init__(self, env,actuators):
         Thread.__init__(self)
         self.env = env
         self.daemon = True
+        self.actuators = actuators
 
     def run(self):
         while True:
             self.env.update_environment()
+            self.env.change_val(self.actuators)
             sleep(0.1)
 
 
