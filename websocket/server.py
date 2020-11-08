@@ -6,9 +6,9 @@ from websocket.helper import html_table, BackgroundWorker
 import threading
 
 # suppress output to console
-import logging
-log = logging.getLogger('werkzeug')
-log.setLevel(logging.ERROR)
+# import logging
+# log = logging.getLogger('werkzeug')
+# log.setLevel(logging.ERROR)
 
 app = Flask(__name__, template_folder='html')
 
@@ -39,9 +39,9 @@ def actuators():
 def show_device(unq_id):
     return iot_server.get_sensor(unq_id)
 
-# @app.route('/actuators/<unq_id>')
-# def show_device(unq_id):
-#     return iot_server.get_actuator(unq_id)
+@app.route('/actuators/<unq_id>')
+def show_actuator(unq_id):
+    return iot_server.get_actuator(unq_id)
 
 
 @app.route('/sensor_com', methods=['POST'])

@@ -51,8 +51,9 @@ class IOT_Server:
             dev.kind = message['ancestors'][-2]
             self.devices[message['id']] = dev
 
-        dev.jobs = message['jobs']
-        return '1'
+        dev.add_data(message['data'])
+        print(dev, dev.jobs)
+        return dev.jobs
 
     def describe_all_sensors(self):
         with self.lock:
@@ -91,13 +92,13 @@ class IOT_Server:
         else:
             return 'device NOT found'
 
-    # def get_actuator(self, unq_id):
-    #     if unq_id in self.devices:
-    #         dev = self.devices[unq_id]
-    #         if dev.data is not None:
-    #             return dev.data.to_html()
-    #     else:
-    #         return 'device NOT found'
+    def get_actuator(self, unq_id):
+        if unq_id in self.devices:
+            dev = self.devices[unq_id]
+            if dev.data is not None:
+                return dev.data.to_html()
+        else:
+            return 'device NOT found'
 
 
 class IOT_Device():
