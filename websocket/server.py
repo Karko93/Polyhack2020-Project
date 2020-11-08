@@ -2,7 +2,7 @@ from flask import Flask, request, render_template
 import requests
 import json
 from websocket.backend import IOT_Server
-from websocket.helper import html_table, BackgroundWorker
+from websocket.helper import BackgroundWorker
 from iot_rules.iot_rul import IOT_Rules
 import threading
 

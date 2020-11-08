@@ -1,11 +1,5 @@
-import pandas as pd
 from threading import Thread, Lock
 from time import sleep
-
-
-def html_table(table):
-    return pd.DataFrame(data=table).to_html()
-
 
 class BackgroundWorker(Thread):
     def __init__(self, iot_server):
