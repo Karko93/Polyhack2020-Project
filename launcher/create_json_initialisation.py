@@ -26,7 +26,7 @@ def create_sensor():
     counter_sensors += 1
     sensor_type = random.choice(sensor_types)
     posx, posy = 30 + np.random.normal(scale=10), 10 + np.random.normal(10)
-    dic = {"serial" : newid, "type" : "sensor", "ancestor" : sensor_type,
+    dic = {"serial" : str(newid).zfill(5), "type" : "sensor", "ancestor" : sensor_type,
             "position" : {"x": posx, "y": posy}}
     return dic
 
@@ -37,7 +37,7 @@ def create_actuator():
     counter_actuators += 1
     actuator_type = random.choice(actuator_types)
     posx, posy = 30 + np.random.normal(scale=10), 10 + np.random.normal(10)
-    dic = {"serial" : newid, "type" : "Actuator", "ancestor" : actuator_type,
+    dic = {"serial" : str(newid).zfill(5), "type" : "Actuator", "ancestor" : actuator_type,
             "position" : {"x": posx, "y": posy}}
     return dic
 
@@ -46,7 +46,7 @@ actuators = [create_actuator() for i in range(number_of_actuators)]
 sensors = [create_sensor() for i in range(number_of_sensors)]
 
 with open(filename_sensors, 'w') as f:
-    json.dump(sensors, f)
+    json.dump(sensors, f, indent=4)
 
 with open(filename_actuators, 'w') as f:
-    json.dump(actuators, f)
+    json.dump(actuators, f, indent=4)

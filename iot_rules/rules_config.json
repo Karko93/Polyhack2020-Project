@@ -1,5 +1,5 @@
 [{"rule" :  "SmartStreetLight",
-  "uniq_id" : "000000",
+  "uniq_id" : "000001",
 "sensor_id_list" :  ["006","004"],
 "actuator_id_list" :  ["100"],
 "actuator_value_True": [1],
