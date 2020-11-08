@@ -1,58 +1,72 @@
-[
-{
+[{
   "serial": 1,
   "type": "sensor",
   "ancestor": "brightness",
   "position":{
-    "x": 47.410847,
-    "y":  8.537878}
-},
-{
+    "x": 63.410847,
+    "y":  12.537878}
+}, {
   "serial": 2,
   "type": "sensor",
   "ancestor": "temperature",
   "position":{
-    "x":47.410154,
-    "y":8.534673}
-},
-{
+    "x": 17.410847,
+    "y":  8.537878}
+}, {
   "serial": 3,
   "type": "sensor",
-  "ancestor": "humidity",
+  "ancestor": "proximity",
   "position":{
-    "x": 47.410344,
-    "y":8.574601}
-},
-{
+    "x": 47.410847,
+    "y":  18.537878}
+}, {
   "serial": 4,
   "type": "sensor",
   "ancestor": "noise",
   "position":{
-    "x":47.410154,
-    "y":8.534623}
-},
-{
+    "x": 46.410847,
+    "y":  27.537178}
+}, {
   "serial": 5,
   "type": "sensor",
-  "ancestor": "proximity",
+  "ancestor": "distance",
   "position":{
-    "x": 47.420154,
-    "y": 8.554603}
-},
-{
+    "x": 57.410847,
+    "y":  18.537878}
+}, {
   "serial": 6,
-  "type": "actuator",
-  "ancestor": "doorlock",
+  "type": "sensor",
+  "ancestor": "motion",
   "position":{
-    "x":47.410354,
-    "y":8.533603}
-},
-{
+    "x": 43.410847,
+    "y":  2.537878}
+}, {
   "serial": 7,
-  "type": "actuator",
-  "ancestor": "lamp",
+  "type": "sensor",
+  "ancestor": "humidity",
   "position":{
-    "x": 47.413154,
-    "y":8.534643}
-}
-  ]
+    "x": 32.410847,
+    "y":  10.125378}
+},{
+  "serial": 8,
+  "type": "sensor",
+  "ancestor": "humidity",
+  "position": {
+    "x": 39.410847,
+    "y": 9.137878}
+    }, {
+  "serial": 9,
+  "type": "sensor",
+  "ancestor": "airquality",
+  "position": {
+    "x": 37.410847,
+    "y": 10.547878}
+    }, {
+  "serial": 10,
+  "type": "sensor",
+  "ancestor": "temperature",
+  "position": {
+    "x": 32.410847,
+    "y": 15.137878}
+    }
+]
