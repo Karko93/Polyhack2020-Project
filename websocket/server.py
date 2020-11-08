@@ -23,11 +23,11 @@ def default():
 
 @app.route('/sensors')
 def sensors():
-    return html_table(iot_server.describe_all_sensors())
+    return iot_server.describe_all_sensors()
 
 @app.route('/actuators')
 def actuators():
-    return html_table(iot_server.describe_all_actuators())
+    return iot_server.describe_all_actuators()
 
 @app.route('/rules')
 def rules():

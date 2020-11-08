@@ -51,7 +51,6 @@ class IOT_Server:
             dev = globals()[message['ancestors'][0]](message['id'])
             dev.kind = message['ancestors'][-2]
             self.devices[message['id']] = dev
-
         dev.add_data(message['data'])
         dev.data = dev.data.iloc[-50:]
         return dev.jobs
@@ -66,9 +65,14 @@ class IOT_Server:
                 if self.devices[dev].kind=='Sensor':
                     ids.append(dev)
                     types.append(type(self.devices[dev]).__name__)
-                    latest_timestamps.append(self.devices[dev].data['timestamp'].iloc[-1])
+                    ts = self.devices[dev].data['timestamp'].iloc[-1]
+                    if isinstance(ts, int):
+                        latest_timestamps.append(dt.utcfromtimestamp(self.devices[dev].data['timestamp'].iloc[-1]))
+                    else:
+                        latest_timestamps.append(ts)
+
             device_table = {'ID': ids, 'Type': types, 'Timestamps' : latest_timestamps}
-            return device_table
+            return pd.DataFrame(device_table).sort_values('ID').to_html()
 
     def describe_all_actuators(self):
         with self.lock:
@@ -82,7 +86,7 @@ class IOT_Server:
                     jobs.append(self.devices[dev].jobs)
 
             device_table = {'ID': ids, 'Type': types, 'jobs': jobs}
-            return device_table
+            return pd.DataFrame(device_table).sort_values('ID').to_html()
 
     def describe_all_rules(self):
         with self.lock:
@@ -135,7 +139,10 @@ class IOT_Device():
         self.uniq_id = uniq_id
 
     def add_data(self, data):
-        # data['timestamp'] = dt.utcfromtimestamp(data['timestamp'])
+
+        if not isinstance(data['timestamp'], str):
+            data['timestamp'] = dt.utcfromtimestamp(data['timestamp'])
+        # data['timestamp'] = data['timestamp']
         if self.data is None:
             self.data = pd.DataFrame(data, index=[0])
         else:
