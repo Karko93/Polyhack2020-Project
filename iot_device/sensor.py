@@ -56,7 +56,7 @@ class SensorInstantiator(Thread):
     def run(self):
         while True:
             self.update()
-            sleep(1)
+            sleep(0.1)
 
 
 class Sensor(IOT_Device):
