@@ -54,7 +54,7 @@ actuators = [create_actuator(actuator_kinds[i]) for i in range(number_of_actuato
 sensors = [create_sensor(sensor_kinds[i]) for i in range(number_of_sensors)]
 
 with open(filename_sensors, 'w') as f:
-    json.dump(sensors, f)
+    json.dump(sensors, f, indent=4)
 
 with open(filename_actuators, 'w') as f:
-    json.dump(actuators, f)
+    json.dump(actuators, f, indent=4)

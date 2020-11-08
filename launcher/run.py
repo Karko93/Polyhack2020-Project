@@ -6,8 +6,8 @@ from time import sleep
 import json
 
 # Reading the initialisation files
-filename_sensors = 'initialisation_sensors.json'
-filename_actuators = 'initialisation_actuators.json'
+filename_sensors = 'initialisation_sensor.json'
+filename_actuators = 'initialisation_actuator.json'
 with open(filename_sensors) as initialisation_file:
     list_of_sensors = json.load(initialisation_file)
 with open(filename_actuators) as initialisation_file:
