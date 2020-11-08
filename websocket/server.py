@@ -8,8 +8,8 @@ import threading
 app = Flask(__name__, template_folder='html')
 
 iot_server = IOT_Server()
-# background_worker = BackgroundWorker(iot_server)
-# background_worker.start()
+background_worker = BackgroundWorker(iot_server)
+background_worker.start()
 
 @app.route('/')
 def default():

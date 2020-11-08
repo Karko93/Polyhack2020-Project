@@ -1,21 +1,27 @@
 import pandas as pd
 from threading import RLock
 from datetime import datetime as dt
+from iot_rules.parser import RuleBook
 
 class IOT_Server:
     _devices = None
-    rules = None
+    _rules = None
 
     def __init__(self):
         # replace this with something that reads a json file listing the devices
         self._devices = {}  # key:value pairs of the form id:device
-        self.rules = []
+        self._rules = RuleBook().all_rules
         self.lock = RLock()
 
     @property
     def devices(self):
         with self.lock:
             return self._devices
+
+    @property
+    def rules(self):
+        with self.lock:
+            return self._rules
 
     def process_sensor(self, message):
         '''
@@ -133,6 +139,8 @@ class Actuator(IOT_Device):
         super().__init__(id)
         self.jobs = {}
 
+class SmartLamp(Actuator):
+    pass
 
 if __name__ == '__main__':
     environmental_sensor = Sensor('temp_sensor_1', ['temperature', 'humidity'])
