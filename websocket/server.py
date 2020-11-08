@@ -5,6 +5,7 @@ from websocket.backend import IOT_Server
 from websocket.helper import html_table, BackgroundWorker
 import threading
 
+# suppress output to console
 import logging
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
