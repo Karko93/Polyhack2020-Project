@@ -32,7 +32,12 @@ def actuators():
 
 @app.route('/sensors/<unq_id>')
 def show_device(unq_id):
-    return iot_server.get_device(unq_id)
+    return iot_server.get_sensor(unq_id)
+
+# @app.route('/actuators/<unq_id>')
+# def show_device(unq_id):
+#     return iot_server.get_actuator(unq_id)
+
 
 @app.route('/sensor_com', methods=['POST'])
 def sensor_com():

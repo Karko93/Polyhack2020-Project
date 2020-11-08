@@ -70,19 +70,34 @@ class IOT_Server:
 
     def describe_all_actuators(self):
         with self.lock:
-            ids = [dev for dev in self.devices if self.devices[dev].kind=='Actuator']
-            types = [type(self.devices[dev]).__name__ for dev in self.devices if self.devices[dev].kind=='Actuator']
-            device_table = {'ID': ids, 'Type': types}
+            ids = []
+            types = []
+            jobs = []
+            for dev in self.devices:
+                if self.devices[dev].kind=='Actuator':
+                    ids.append(dev)
+                    types.append(type(self.devices[dev]).__name__)
+                    jobs.append(self.devices[dev].jobs)
+
+            device_table = {'ID': ids, 'Type': types, 'jobs': jobs}
             return device_table
 
 
-    def get_device(self, unq_id):
+    def get_sensor(self, unq_id):
         if unq_id in self.devices:
             dev = self.devices[unq_id]
             if dev.data is not None:
                 return dev.data.to_html()
         else:
             return 'device NOT found'
+
+    # def get_actuator(self, unq_id):
+    #     if unq_id in self.devices:
+    #         dev = self.devices[unq_id]
+    #         if dev.data is not None:
+    #             return dev.data.to_html()
+    #     else:
+    #         return 'device NOT found'
 
 
 class IOT_Device():
