@@ -40,9 +40,11 @@ class BackgroundWorker(Thread):
                 # Collect Sensor data
                 rule.data = []
                 for sensor_id, reading in zip(rule.sensor_ids, rule.sensor_reading):
+                    print(self.iot_server.devices[sensor_id].data)
                     rule.data.append(self.iot_server.devices[sensor_id].data[reading].iloc[-1])
 
                 # Send jobs based on decision
+                print(rule.rule_decision())
                 if rule.rule_decision():
                     actuator_value = rule.actuator_value_True
                 elif rule.actuator_value_False is not None:
