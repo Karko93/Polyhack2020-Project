@@ -69,6 +69,19 @@ class SmartFloodLight(IOT_Rules):
                          requirement='all'
                          )
 
+class FireEmergency(IOT_Rules):
+    def __init__(self, uniq_id, sensor_id_list, actuator_id_list):
+        super().__init__(uniq_id=uniq_id,
+                         sensor_id_list=sensor_id_list,
+                         actuator_id_list=actuator_id_list,
+                         actuator_value_True=[1],
+                         sensor_reading=['temperature', 'noise_detector'],
+                         actuator_output=['sprinkler'],
+                         comparisons=['>', '='],
+                         thresholds=[30, True],
+                         requirement='all'
+                         )
+
 
 if __name__ == '__main__':
     # dummy_rul = IOT_Rules(uniq_id='000000')
