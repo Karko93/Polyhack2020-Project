@@ -1,7 +1,8 @@
-{{
+[
+{
   "serial": 1,
   "type": "sensor",
-  "ancestor": "temperature",
+  "ancestor": "brightness",
   "position":{
     "x": 47.410847,
     "y":  8.537878}
@@ -17,7 +18,7 @@
 {
   "serial": 3,
   "type": "sensor",
-  "ancestor": "motion",
+  "ancestor": "humidity",
   "position":{
     "x": 47.410344,
     "y":8.574601}
@@ -54,4 +55,4 @@
     "x": 47.413154,
     "y":8.534643}
 }
-  }
+  ]
