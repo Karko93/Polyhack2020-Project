@@ -5,7 +5,7 @@ from websocket.backend import IOT_Server
 from websocket.helper import BackgroundWorker, plot_data
 from iot_rules.iot_rul import IOT_Rules
 import threading
-
+from launcher.device_visualization import create_map
 
 # suppress output to console
 import logging
@@ -25,7 +25,8 @@ def default():
 
 @app.route('/map')
 def map():
-    return render_template('index.html')
+    create_map()
+    return render_template('map.html')
 
 
 @app.route('/monitor', methods=['GET', 'POST'])
