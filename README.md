@@ -6,7 +6,9 @@ Use following command to install the required libraries:
 > pip install -U Flask
 ---
 ## Executing Code
-1. Run the python script "server.py"
+1. Start the server with the script "server.py"
+2. Run the python script "run.py"
+1. Got to the URL in your browser: [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 ---
 ## Overview of the scripts
 
