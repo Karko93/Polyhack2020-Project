@@ -158,6 +158,20 @@ class Actuator(IOT_Device):
 class SmartLamp(Actuator):
     pass
 
+class SmartDoorLock(Actuator):
+    pass
+
+class MotorPosition(Actuator):
+    pass
+
+class Heating(Actuator):
+    pass
+
+class Sprinkler(Actuator):
+    pass
+
+
+
 if __name__ == '__main__':
     environmental_sensor = Sensor('temp_sensor_1', ['temperature', 'humidity'])
     door_positioner = Actuator('door_positioner_1', ['door_position'])

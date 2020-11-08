@@ -1,5 +1,6 @@
 from environment import Environment
 from sensor import *
+from actuator import *
 from threading import Thread
 from time import sleep
 
@@ -50,9 +51,27 @@ if __name__=='__main__':
     clock = EnvironmentManager(env)
     clock.start()
 
+    actuators = []
+
+    # for id in range(2):
+    #     actuators.append(SmartDoorLock(str(counter).zfill(6),))
+    #     counter += 1
+    #
+    # for id in range(2):
+    #     actuators.append(MotorPosition(str(counter).zfill(6),))
+    #     counter += 1
+
+    for id in range(2):
+        actuators.append(SmartLamp(str(counter).zfill(6),))
+        counter += 1
+
     while True:
         for sensor in sensors:
             data = sensor.data
             # print(sensor.uniq_id, data)
             sensor.send_to_server(data)
+
+        for actuator in actuators:
+            actuator.openJobs = actuator.send_to_server()
+            actuator.update_status()
         sleep(1)
