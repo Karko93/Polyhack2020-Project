@@ -28,6 +28,10 @@ def sensors():
 def actuators():
     return html_table(iot_server.describe_all_actuators())
 
+@app.route('/rules')
+def rules():
+    # iot_server.describe_all_rules()
+    return iot_server.describe_all_rules()
 
 @app.route('/sensors/<unq_id>')
 def show_device(unq_id):
