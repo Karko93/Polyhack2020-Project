@@ -2,9 +2,10 @@ from flask import Flask, request, render_template
 import requests
 import json
 from websocket.backend import IOT_Server
-from websocket.helper import BackgroundWorker
+from websocket.helper import BackgroundWorker, plot_data
 from iot_rules.iot_rul import IOT_Rules
 import threading
+
 
 # suppress output to console
 import logging
@@ -16,10 +17,43 @@ app = Flask(__name__, template_folder='html')
 iot_server = IOT_Server()
 background_worker = BackgroundWorker(iot_server)
 background_worker.start()
+plot_data_dict = {}
 
 @app.route('/')
 def default():
     return render_template('index.html')
+
+@app.route('/map')
+def map():
+    return render_template('index.html')
+
+
+@app.route('/monitor', methods=['GET', 'POST'])
+def monitor():
+    global plot_data_dict
+    html = render_template('monitor.html')
+    if request.method == 'POST':
+        if 'plot' in request.form:
+            unq_id = request.form['unq_id']
+            if unq_id in iot_server.devices:
+                plot_data_dict[unq_id] = {'x': [], 'y': []}
+                data = iot_server.devices[unq_id].data
+                plot_data_dict[unq_id]['x'] = data['timestamp'].values
+                plot_data_dict[unq_id]['y'] = [data[key].values for key in data if key != 'timestamp']
+            html = plot_data(plot_data_dict, html)
+        elif 'erase' in request.form:
+            plot_data_dict = {}
+            html = render_template('monitor.html')
+        elif 'refresh' in request.form:
+            html = render_template('monitor.html')
+            for unq_id in plot_data_dict:
+                if unq_id in iot_server.devices:
+                    plot_data_dict[unq_id] = {'x': [], 'y': []}
+                    data = iot_server.devices[unq_id].data
+                    plot_data_dict[unq_id]['x'] = data['timestamp'].values
+                    plot_data_dict[unq_id]['y'] = [data[key].values for key in data if key != 'timestamp']
+            html = plot_data(plot_data_dict, html)
+    return html
 
 @app.route('/sensors')
 def sensors():

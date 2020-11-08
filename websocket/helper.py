@@ -1,5 +1,23 @@
 from threading import Thread, Lock
 from time import sleep
+import matplotlib.pyplot as plt
+import base64
+from io import BytesIO
+
+def plot_data(plot_data_dict, html):
+    fig, ax = plt.subplots()
+    for key in plot_data_dict:
+        x = plot_data_dict[key]['x']
+        y = plot_data_dict[key]['y']
+        for _y in y:
+            ax.plot(x, _y, marker='o', label=key)
+    fig.legend(loc='best')
+    tmpfile = BytesIO()
+    fig.savefig(tmpfile, format='png')
+    encoded = base64.b64encode(tmpfile.getvalue()).decode('utf-8')
+
+    html = html + '<img src=\'data:image/png;base64,{}\'>'.format(encoded)
+    return html
 
 class BackgroundWorker(Thread):
     def __init__(self, iot_server):

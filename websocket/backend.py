@@ -131,15 +131,13 @@ class IOT_Server:
 
 
 class IOT_Device():
-    uniq_id = None
-    data = None
-    kind = None
-
     def __init__(self, uniq_id):
         self.uniq_id = uniq_id
+        self.data = None
+        self.kind = None
 
     def add_data(self, data):
-
+        print(data)
         if not isinstance(data['timestamp'], str):
             data['timestamp'] = dt.utcfromtimestamp(data['timestamp'])
         # data['timestamp'] = data['timestamp']
@@ -147,7 +145,6 @@ class IOT_Device():
             self.data = pd.DataFrame(data, index=[0])
         else:
             self.data = self.data.append(data, ignore_index=True)
-        # print(self.data)
 
 
 class Sensor(IOT_Device):
