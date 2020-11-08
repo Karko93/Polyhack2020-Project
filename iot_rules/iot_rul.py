@@ -1,19 +1,21 @@
 import operator
 
 class IOT_Rules:
-    def __init__(self, uniq_id, sensor_id_list, actuator_id_list,
-                 actuator_value_True, actuator_value_False=None):
+    def __init__(self, uniq_id, sensor_id_list, sensor_reading, actuator_id_list,
+                 actuator_output, comparisons, thresholds,
+                 actuator_value_True, actuator_value_False=None, requirement='all'):
         self.uniq_id = uniq_id
         self.sensor_ids = sensor_id_list
         self.actuator_ids = actuator_id_list
-        self.data = []
-        self.sensor_reading = []
-        self.actuator_output = []
+        self.sensor_reading = sensor_reading
+        self.actuator_output = actuator_output
         self.actuator_value_True = actuator_value_True
         self.actuator_value_False = actuator_value_False
-        self.comparisons = []
-        self.thresholds = []
-        self.requirement = 'all'
+        self.comparisons = comparisons
+        self.thresholds = thresholds
+        self.requirement = requirement
+
+        self.data = []
 
     def rule_decision(self):
         comp_operators = [{'>': operator.gt, '<': operator.lt, '=': operator.eq, '!=': operator.ne, }[comp] for
@@ -26,39 +28,46 @@ class IOT_Rules:
 
 class SmartStreetLight(IOT_Rules):
     def __init__(self, uniq_id, sensor_id_list, actuator_id_list,
-                 actuator_value_True, actuator_value_False=None):
-        super().__init__(uniq_id, sensor_id_list, actuator_id_list,
-                 actuator_value_True, actuator_value_False)
-        self.sensor_reading = ['motion', 'noise_detector']
-        self.actuator_output = ['intensity']
-
-        self.comparisons = ['=', '=']
-        self.thresholds = [True, True]
-        self.requirement = 'all'
+                 actuator_value_True=[1], actuator_value_False=None):
+        super().__init__(uniq_id=uniq_id,
+                         sensor_id_list=sensor_id_list,
+                         actuator_id_list=actuator_id_list,
+                         actuator_value_True=actuator_value_True,
+                         actuator_value_False=actuator_value_False,
+                         sensor_reading=['motion', 'noise_detector'],
+                         actuator_output=['intensity'],
+                         comparisons=['=', '='],
+                         thresholds=[True, True],
+                         requirement='all'
+                         )
 
 
 class SmartCatDoor(IOT_Rules):
-    def __init__(self, uniq_id, sensor_id_list, actuator_id_list,
-                 actuator_value_True, actuator_value_False=None, distance_threshold=0.5):
-        super().__init__(uniq_id, sensor_id_list, actuator_id_list,
-                         actuator_value_True, actuator_value_False)
-        self.sensor_reading = ['distance']
-        self.actuator_output = ['switch']
-
-        self.comparisons = ['<']
-        self.thresholds = [distance_threshold]
-        self.requirement = 'all'
+    def __init__(self, uniq_id, sensor_id_list, actuator_id_list, distance_threshold=0.5):
+        super().__init__(uniq_id=uniq_id,
+                         sensor_id_list=sensor_id_list,
+                         actuator_id_list=actuator_id_list,
+                         actuator_value_True=[0],
+                         actuator_value_False=[1],
+                         sensor_reading=['distance'],
+                         actuator_output=['door_locked'],
+                         comparisons=['<'],
+                         thresholds=[distance_threshold],
+                         requirement='all')
 
 
 class SmartFloodLight(IOT_Rules):
     def __init__(self, uniq_id, sensor_id_list, actuator_id_list):
-        super().__init__(uniq_id, sensor_id_list, actuator_id_list)
-        self.sensor_reading = ['motion', 'noise_detector']
-        self.actuator_output = ['switch' for _ in actuator_id_list]
-
-        self.comparisons = ['=', '=']
-        self.thresholds = [True, True]
-        self.requirement = 'all'
+        super().__init__(uniq_id=uniq_id,
+                         sensor_id_list=sensor_id_list,
+                         actuator_id_list=actuator_id_list,
+                         actuator_value_True=[1 for _ in actuator_id_list],
+                         sensor_reading=['motion', 'noise_detector'],
+                         actuator_output=['intensity' for _ in actuator_id_list],
+                         comparisons=['=', '='],
+                         thresholds=[True, True],
+                         requirement='all'
+                         )
 
 
 if __name__ == '__main__':
